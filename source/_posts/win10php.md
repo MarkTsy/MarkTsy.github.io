@@ -10,8 +10,10 @@ categories: 教程
 ### 下载地址:
 
 [http://windows.php.net/](http://windows.php.net/ "http://windows.php.net/")
-![](win10-php/20200308153010.jpg)
+
 <!--more-->
+
+![](win10-php/20200308153010.jpg)
 ![](win10-php/20200308153238.png)
 
 **注意:**

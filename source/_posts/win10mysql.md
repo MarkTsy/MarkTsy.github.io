@@ -7,10 +7,12 @@ categories: 教程
 
 ## 下载
 
+官网下载地址:
 [https://www.mysql.com/](https://www.mysql.com/)
 
-![](win10-mysql/20200308154339.png)
 <!--more-->
+
+![](win10-mysql/20200308154339.png)
 ![](win10-mysql/20200308154405.png)
 ![](win10-mysql/20200308154428.png)
 ![](win10-mysql/20200308154702.png)
@@ -158,5 +160,3 @@ update mysql.user set authentication_string='' where User = 'root';.
 ```sql
 alter user 'root'@'localhost' identified by '123';
 ```
-
-
