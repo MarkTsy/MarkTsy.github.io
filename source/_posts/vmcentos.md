@@ -1,7 +1,7 @@
 ---
-title: Win10 Vmware虚拟机安装Centos
+title: Win10 Vmware虚拟机安装Centos6
 date: 2020-03-09 14:25:56
-tags: [vmware, centos]
+tags: [vmware, centos6]
 categories: 教程
 ---
 
