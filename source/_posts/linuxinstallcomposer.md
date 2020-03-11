@@ -35,7 +35,8 @@ php -r "readfile('https://getcomposer.org/installer');" | php
 curl -sS https://getcomposer.org/installer | php -- --install-dir=bin
 ```
 
-#### 全局安装 你可以将此文件放在任何地方。如果你把它放在系统的 PATH 目录中，你就能在全局访问它。 在类Unix系统中，你甚至可以在使用时不加 php 前缀。
+#### 全局安装
+你可以将此文件放在任何地方。如果你把它放在系统的 PATH 目录中，你就能在全局访问它。 在类Unix系统中，你甚至可以在使用时不加 php 前缀。
 
 你可以执行这些命令让 composer 在你的系统中进行全局调用：
 
