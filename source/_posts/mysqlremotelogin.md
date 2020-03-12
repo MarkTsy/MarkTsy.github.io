@@ -5,8 +5,6 @@ tags: [mysql,远程登录]
 categories: Mysql
 ---
 
-
-
 ```sql
 mysql>  alter user 'root'@'localhost' identified with mysql_native_password by '123456';
 Query OK, 0 rows affected (0.60 sec)

@@ -2,7 +2,7 @@
 title: Linux 更改Mysql Root密码
 date: 2020-03-10 19:00:14
 tags: [mysql,root密码]
-categories: [Mysql]
+categories: Mysql
 ---
 
 ### ![](centoschangemysqlpwd/u=3853313707,2686910450&fm=26&gp=0.jpg)

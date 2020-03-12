@@ -2,7 +2,7 @@
 title: Win10 Apache 下载/安装/卸载
 date: 2020-03-08 16:20:12
 tags: [Apache, Apache安装,Apahce配置]
-categories: 教程
+categories: Apache
 ---
 
 ## 下载

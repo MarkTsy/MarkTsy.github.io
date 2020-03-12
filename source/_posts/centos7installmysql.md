@@ -2,7 +2,7 @@
 title: Centos7 yum安装Mysql
 date: 2020-03-10 14:45:10
 tags: [Centos7,Mysql]
-categories: 教程
+categories: Mysql
 ---
 
 ![](centos7installmysql/u=3853313707,2686910450&fm=26&gp=0.jpg)

@@ -2,7 +2,7 @@
 title: Linux ThinkPHP5.1 秒级定时任务
 date: 2020-03-11 17:13:45
 tags: [thinkphp,定时任务]
-categories: 教程
+categories: PHP
 ---
 
 ![](thinkphptimer/u=76165371,771060864&fm=26&gp=0.jpg)

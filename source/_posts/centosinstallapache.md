@@ -2,7 +2,7 @@
 title: Centos安装Apache
 date: 2020-03-10 19:28:23
 tags: [apache]
-categories: 教程
+categories: Apache
 ---
 
 ### 安装apache

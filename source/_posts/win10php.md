@@ -2,7 +2,7 @@
 title: Win10 PHP 安装/配置
 date: 2020-03-08 15:19:53
 tags: [PHP下载,PHP安装,PHP Apache配置]
-categories: 教程
+categories: PHP
 ---
 
 ## 下载
@@ -13,8 +13,8 @@ categories: 教程
 
 <!--more-->
 
-![](win10-php/20200308153010.jpg)
-![](win10-php/20200308153238.png)
+![](win10php/20200308153010.jpg)
+![](win10php/20200308153238.png)
 
 **注意:**
 系统位数以及vc版本

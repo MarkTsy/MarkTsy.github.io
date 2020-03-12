@@ -2,7 +2,7 @@
 title: Win10 MySQL 下载/安装
 date: 2020-03-08 15:41:46
 tags: [MySQL安装,MySQL卸载]
-categories: 教程
+categories: Mysql
 ---
 
 ## 下载

@@ -1,13 +1,14 @@
 ---
 title: Centos 安装PHP7
 date: 2020-03-10 19:32:26
-tags: [php]
-categories: 教程
+tags: [php安装]
+categories: PHP
 ---
 
 ![](centosinstallphp7/u=426857830,3900731748&fm=26&gp=0.jpg)
 
 <!--more-->
+
 一、PHP的安装
 　1、由于linux的yum源不存在php7.x，所以我们要更改yum源：
 
