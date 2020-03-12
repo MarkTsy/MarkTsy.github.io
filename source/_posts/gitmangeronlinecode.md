@@ -29,7 +29,7 @@ $ cd /root
 $ mkdir gittest
 $ cd gittest
 $ git init --bare test.git
-Initialized empty Git repository in /home/gitrepo/runoob.git/
+Initialized empty Git repository in /home/gitrepo/test.git/
 ```
 
 ##### git仓库与项目源码分离
@@ -40,7 +40,11 @@ $ vi post-receive
 ```
 
 输入
-git --work-tree=/root/gittest --git-dir=/root/gittest/test.git checkout -f
+
+> git --work-tree=/root/gittest --git-dir=/root/gittest/test.git checkout -f
+
+/root/gittest  #代码目录
+/root/gittest/test.git   #git库目录
 
 #### 本地
 
