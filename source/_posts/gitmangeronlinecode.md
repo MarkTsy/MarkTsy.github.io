@@ -41,10 +41,28 @@ $ vi post-receive
 
 输入
 
-> git --work-tree=/root/gittest --git-dir=/root/gittest/test.git checkout -f
+```
+git --work-tree=/root/gittest --git-dir=/root/gittest/test.git checkout -f
+```
+
+```bash
+chtl D 保存
+```
+
+
 
 /root/gittest  #代码目录
 /root/gittest/test.git   #git库目录
+
+
+
+文件权限
+
+```
+chmod 766 post-receive
+```
+
+
 
 #### 本地
 
@@ -54,3 +72,5 @@ $ vi post-receive
 ```
 
 即可在服务端/root/gittest目录下查看到提交的文件, 把/root/gittest作为web目录, 即可.
+
+
