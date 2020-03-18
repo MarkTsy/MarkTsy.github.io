@@ -1,5 +1,5 @@
 ---
-title: Centos7 yum安装Mysql
+title: Centos7 yum安装/卸载 Mysql
 date: 2020-03-10 14:45:10
 tags: [Centos7,Mysql]
 categories: Mysql
@@ -45,8 +45,14 @@ service mysqld start
 
 ### 连接数据库
 
+查看临时root密码
+
 ```bash
-mysql -u root -p  #回车 密码为空  直接回车登录
+cat /var/log/mysqld.log | grep 'temporary password'
+```
+
+```bash
+mysql -u root -p  #回车 密码  
 ```
 
 ### 初始化数据库root密码
@@ -71,3 +77,35 @@ quit;
 ```
 
 至此安装完成！
+
+### 卸载
+
+停止服务
+
+```bash
+systemctl stop mysqld.service
+```
+
+查看已安装软件
+
+```bash
+yum list installed | grep mysql
+```
+
+卸载安装软件 根据上一步列出的安装软件进行卸载
+
+```
+yum remove mysql-community-client mysql-community-common mysql-community-server mysql-community-libs mysql-community-libs-compat
+```
+
+查看残留文件
+
+```
+whereis mysql
+#或
+find / -name mysql
+
+rm -rf xxx
+```
+
+
