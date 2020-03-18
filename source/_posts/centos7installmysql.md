@@ -58,6 +58,11 @@ mysql -u root -p  #回车 密码
 ### 初始化数据库root密码
 
 ```bash
+#第一种
+alter user user() identified by "xxxxx";
+
+
+#第二种
 #选择数据库
 use mysql 
 
@@ -107,5 +112,3 @@ find / -name mysql
 
 rm -rf xxx
 ```
-
-
