@@ -13,13 +13,9 @@ Google官方目前支持的平台，phone，pad，wear，car...等
 
 <!--more-->
 
-
-
 #### 官方教程地址：
 
 https://developer.android.com/training/cars
-
-
 
 #### 添加系统映像：
 
@@ -35,8 +31,6 @@ URL：https://developer.polestar.com/sdk/polestar2-sys-img.xml
 
 5.点击 Apply，然后点击 OK。
 
-
-
 #### 创建汽车 AVD 并运行模拟器
 
 1.在 Android Studio 中，依次选择 Tools > AVD Manager。
@@ -47,7 +41,7 @@ URL：https://developer.polestar.com/sdk/polestar2-sys-img.xml
 6.在工具窗口栏中，选择您的 Android Automotive OS AVD 作为部署目标。
 7.点击 Run
 
-![loading-ag-172](androidautomotiverun/20200320185204.png)
+![](androidautomotiverun/20200320185204.png)
 
 #### 问题
 
@@ -55,13 +49,11 @@ URL：https://developer.polestar.com/sdk/polestar2-sys-img.xml
 
 升级android studio到3.5以上
 
-
-
 ##### 2.加载不出system image
 
 创建avd的时候 ，select system image的时候可能加载不出系统镜像
 
-Android Studio >> Preferences >> Appearance & Behavior >> System Settings >> Updates'
+Android Studio >> Preferences >> Appearance & Behavior >> System Settings >> Updates
 
 更改检查更新的方式为：
 
