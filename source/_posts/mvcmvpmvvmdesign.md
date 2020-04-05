@@ -19,7 +19,7 @@ categories: 设计模式
 
 ### MVC设计架构
 
-![](C:\Users\tao\Desktop\githubpage\blog\source\_posts\mvcmvpmvvmdesign\mvc.png)
+![](mvcmvpmvvmdesign/mvc.png)
 
 #### MVC简介
 
@@ -52,7 +52,7 @@ Android中界面部分也采用了当前比较流行的MVC框架，在Android中
 
 MVP从更早的MVC框架演变过来，与MVC有一定的相似性：Controller/Presenter负责逻辑的处理，Model提供数据，View负责显示。
 
-![](C:\Users\tao\Desktop\githubpage\blog\source\_posts\mvcmvpmvvmdesign\mvp.png)
+![](mvcmvpmvvmdesign/mvp.png)
 
 #### MVP框架由3部分组成：
 
@@ -81,7 +81,7 @@ MVP的Presenter是框架的控制者，承担了大量的逻辑操作，而MVC�
 通常View与Presenter是一对一的，但复杂的View可能绑定多个Presenter来处理逻辑。而Controller是基于行为的，并且可以被多个View共享，Controller可以负责决定显示哪个View 
 Presenter与View的交互是通过接口来进行的，更有利于添加单元测试。
 
-![](C:\Users\tao\Desktop\githubpage\blog\source\_posts\mvcmvpmvvmdesign\mvcp.jpg)
+![](mvcmvpmvvmdesign/mvcp.jpg)
 
 因此我们可以发现MVP的优点如下：
 
@@ -103,7 +103,7 @@ UI层一般包括Activity，Fragment，Adapter等直接和UI相关的类，UI层
 
 MVP的变种有很多，其中使用最广泛的是Passive View模式，即被动视图。在这种模式下，View和Model之间不能直接交互，View通过Presenter与Model打交道。Presenter接受View的UI请求，完成简单的UI处理逻辑，并调用Model进行业务处理，并调用View将相应的结果反映出来。View直接依赖Presenter，但是Presenter间接依赖View，它直接依赖的是View实现的接口。  
 
-![](C:\Users\tao\Desktop\githubpage\blog\source\_posts\mvcmvpmvvmdesign\f7002cd0e8951e46fd963bff0a0081d8.jpg)
+![](mvcmvpmvvmdesign/f7002cd0e8951e46fd963bff0a0081d8.jpg)
 
 相对于View的被动，那Presenter就是主动的一方。对于Presenter的主动，有如下的理解：
 
@@ -128,7 +128,7 @@ MVP的变种有很多，其中使用最广泛的是Passive View模式，即被�
 
 最终的架构如下图所示：
 
-![](C:\Users\tao\Desktop\githubpage\blog\source\_posts\mvcmvpmvvmdesign\ee7b3f65d6ff23453e78193b6a37d79b.jpg)
+![](mvcmvpmvvmdesign/ee7b3f65d6ff23453e78193b6a37d79b.jpg)
 
 ### MVVM
 
@@ -136,7 +136,7 @@ MVVM可以算是MVP的升级版，其中的VM是ViewModel的缩写，ViewModel�
 
 在比较之前，先从图上看看三者的异同。
 
-![](C:\Users\tao\Desktop\githubpage\blog\source\_posts\mvcmvpmvvmdesign\bb8f3106230c33063ab53393dfe1876a.jpg)
+![](mvcmvpmvvmdesign/bb8f3106230c33063ab53393dfe1876a.jpg)
 
 刚开始理解这些概念的时候认为这几种模式虽然都是要将view和model解耦，但是非此即彼，没有关系，一个应用只会用一种模式。后来慢慢发现世界绝对不是只有黑白两面，中间最大的一块其实是灰色地带，同样，这几种模式的边界并非那么明显，可能你在自己的应用中都会用到。实际上也根本没必要去纠结自己到底用的是MVC、MVP还是MVVP，不管黑猫白猫，捉住老鼠就是好猫。
 
