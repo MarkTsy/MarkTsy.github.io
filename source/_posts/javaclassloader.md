@@ -109,9 +109,9 @@ d.符号引用验证
 
 **其他类加载器：** 由Java语言实现，继承自抽象类ClassLoader。如：
 
-**扩展类加载器（Extension ClassLoader）：** 负责加载<JAVA_HOME>\lib\ext目录或java.ext.dirs系统变量指定的路径中的所有类库，即负责加载Java扩展的核心类之外的类。
+* 扩展类加载器（Extension ClassLoader）： 负责加载<JAVA_HOME>\lib\ext目录或java.ext.dirs系统变量指定的路径中的所有类库，即负责加载Java扩展的核心类之外的类。
 
-**应用程序类加载器（Application ClassLoader）：** 负责加载用户类路径（classpath）上的指定类库，我们可以直接使用这个类加载器，通过ClassLoader.getSystemClassLoader()方法直接获取。一般情况，如果我们没有自定义类加载器默认就是用这个加载器。
+* 应用程序类加载器（Application ClassLoader）： 负责加载用户类路径（classpath）上的指定类库，我们可以直接使用这个类加载器，通过ClassLoader.getSystemClassLoader()方法直接获取。一般情况，如果我们没有自定义类加载器默认就是用这个加载器。
 
 以上2大类，3小类类加载器基本上负责了所有Java类的加载。下面我们来具体了解上述几个类加载器实现类加载过程时相互配合协作的流程。
 
