@@ -15,9 +15,7 @@ categories: [知识梳理]
 | [角度/弧度](https://marktsy.github.io/2020/03/23/androidviewbase2/)       |
 | [自定义View](https://marktsy.github.io/2020/03/23/androidviewpro1/)      |
 | [绘制基础](https://marktsy.github.io/2020/03/23/androidviewpro2/)         |
-| [Android ClassLoader](https://marktsy.github.io/2020/04/06/androidclassloader/)  |
-
-
+| [Android ClassLoader](https://(https://marktsy.github.io/2020/04/06/androidclassloader/)|
 
 | Java (更新中)                                                     |
 | -------------------------------------------------------------- |
