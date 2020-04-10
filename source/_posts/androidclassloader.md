@@ -23,14 +23,14 @@ Android系统启动时会使用BootClassLoader来预加载常用类，与Java中
 
 ```java
 class BootClassLoader extends ClassLoader {
-	private static BootClassLoader instance;
-	@FindBugsSuppressWarnings("DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED")
-	public static synchronized BootClassLoader getInstance() {
-		if (instance == null) {
-		instance = new BootClassLoader();
-		}
-		return instance;
-	}
+    private static BootClassLoader instance;
+    @FindBugsSuppressWarnings("DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED")
+    public static synchronized BootClassLoader getInstance() {
+        if (instance == null) {
+        instance = new BootClassLoader();
+        }
+        return instance;
+    }
 ...
 }
 ```
@@ -45,10 +45,10 @@ DexClassLoader可以加载dex文件以及包含dex的压缩文件（apk和jar文
 
 ```java
 public class DexClassLoader extends BaseDexClassLoader {
-	public DexClassLoader(String dexPath, String optimizedDirectory,
-	String librarySearchPath, ClassLoader parent) {
-		super(dexPath, new File(optimizedDirectory), librarySearchPath, parent);
-	}
+    public DexClassLoader(String dexPath, String optimizedDirectory,
+    String librarySearchPath, ClassLoader parent) {
+        super(dexPath, new File(optimizedDirectory), librarySearchPath, parent);
+    }
 }
 ```
 
@@ -68,12 +68,12 @@ Android系统使用PathClassLoader来加载系统类和应用程序的类，来�
 
 ```java
 public class PathClassLoader extends BaseDexClassLoader {
-	public PathClassLoader(String dexPath, ClassLoader parent) {
-		super(dexPath, null, null, parent);
-	}
-	public PathClassLoader(String dexPath, String librarySearchPath, ClassLoader parent) {
-		super(dexPath, null, librarySearchPath, parent);
-	}
+    public PathClassLoader(String dexPath, ClassLoader parent) {
+        super(dexPath, null, null, parent);
+    }
+    public PathClassLoader(String dexPath, String librarySearchPath, ClassLoader parent) {
+        super(dexPath, null, librarySearchPath, parent);
+    }
 }
 ```
 
@@ -87,16 +87,16 @@ PathClassLoader的构造方法中没有参数optimizedDirectory，这是因为Pa
 
 ```java
 public class MainActivity extends AppCompatActivity {
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		ClassLoader loader = MainActivity.class.getClassLoader();
-		while (loader != null) {
-			Log.d("xxx",loader.toString());//1
-			loader = loader.getParent();
-		}
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ClassLoader loader = MainActivity.class.getClassLoader();
+        while (loader != null) {
+            Log.d("xxx",loader.toString());//1
+            loader = loader.getParent();
+        }
+    }
 }
 ```
 
@@ -146,40 +146,40 @@ main方法是ZygoteInit入口方法，其中调用了ZygoteInit的preload方法�
 
 ```java
 private static void preloadClasses() {
-	final VMRuntime runtime = VMRuntime.getRuntime();
-	InputStream is;
-	try {
-		is = new FileInputStream(PRELOADED_CLASSES);//1
-	} catch (FileNotFoundException e) {
-		Log.e(TAG, "Couldn't find " + PRELOADED_CLASSES + ".");
-	return;
-	}
+    final VMRuntime runtime = VMRuntime.getRuntime();
+    InputStream is;
+    try {
+        is = new FileInputStream(PRELOADED_CLASSES);//1
+    } catch (FileNotFoundException e) {
+        Log.e(TAG, "Couldn't find " + PRELOADED_CLASSES + ".");
+    return;
+    }
 ...
-	try {
-	    BufferedReader br = new BufferedReader(new InputStreamReader(is), 256);//2
-	int count = 0;
-	String line;
-	while ((line = br.readLine()) != null) {//3
-		line = line.trim();
-		if (line.startsWith("#") || line.equals("")) {
-		continue;
-	}
-		Trace.traceBegin(Trace.TRACE_TAG_DALVIK, line);
-	try {
-		if (false) {
-		    Log.v(TAG, "Preloading " + line + "...");
-	    }
-	    Class.forName(line, true, null);//4
-	    count++;
-	} catch (ClassNotFoundException e) {
-		Log.w(TAG, "Class not found for preloading: " + line);
-	}
-	...
-	} catch (IOException e) {
-		Log.e(TAG, "Error reading " + PRELOADED_CLASSES + ".", e);
-	} finally {
-	...
-	}
+    try {
+        BufferedReader br = new BufferedReader(new InputStreamReader(is), 256);//2
+    int count = 0;
+    String line;
+    while ((line = br.readLine()) != null) {//3
+        line = line.trim();
+        if (line.startsWith("#") || line.equals("")) {
+        continue;
+    }
+        Trace.traceBegin(Trace.TRACE_TAG_DALVIK, line);
+    try {
+        if (false) {
+            Log.v(TAG, "Preloading " + line + "...");
+        }
+        Class.forName(line, true, null);//4
+        count++;
+    } catch (ClassNotFoundException e) {
+        Log.w(TAG, "Class not found for preloading: " + line);
+    }
+    ...
+    } catch (IOException e) {
+        Log.e(TAG, "Error reading " + PRELOADED_CLASSES + ".", e);
+    } finally {
+    ...
+    }
 }
 ```
 
@@ -208,21 +208,21 @@ android.app.Fragment
 ```java
 @CallerSensitive
 public static Class<?> forName(String name, boolean initialize,
-	ClassLoader loader) throws ClassNotFoundException {
-	if (loader == null) {
-		loader = BootClassLoader.getInstance();//1
-	}
-	Class<?> result;
-	try {
-		result = classForName(name, initialize, loader);//2
-	} catch (ClassNotFoundException e) {
-		Throwable cause = e.getCause();
-	    if (cause instanceof LinkageError) {
-		    throw (LinkageError) cause;
-	    }
-	    throw e;
-	}
-	return result;
+    ClassLoader loader) throws ClassNotFoundException {
+    if (loader == null) {
+        loader = BootClassLoader.getInstance();//1
+    }
+    Class<?> result;
+    try {
+        result = classForName(name, initialize, loader);//2
+    } catch (ClassNotFoundException e) {
+        Throwable cause = e.getCause();
+        if (cause instanceof LinkageError) {
+            throw (LinkageError) cause;
+        }
+        throw e;
+    }
+    return result;
 }
 ```
 
@@ -242,30 +242,30 @@ PathClassLoader的创建也得从Zygote进程开始说起，Zygote进程启动Sy
 ```java
 private static boolean startSystemServer(String abiList, String socketName)
  throws MethodAndArgsCaller, RuntimeException {
-	 ...
-	 int pid;
-	 try {
-		 parsedArgs = new ZygoteConnection.Arguments(args);//2
-		 ZygoteConnection.applyDebuggerSystemProperty(parsedArgs);
-		 ZygoteConnection.applyInvokeWithSystemProperty(parsedArgs);
-		 /*1*/
-		 pid = Zygote.forkSystemServer(
-		 parsedArgs.uid, parsedArgs.gid,
-		 parsedArgs.gids,
-		 parsedArgs.debugFlags,
-		 null,
-		 parsedArgs.permittedCapabilities,
-		 parsedArgs.effectiveCapabilities);
-	 } catch (IllegalArgumentException ex) {
-		 throw new RuntimeException(ex);
-	 }
-	 if (pid == 0) {//2
-		 if (hasSecondZygote(abiList)) {
-		 	waitForSecondaryZygote(socketName);
-		 }
-	 	handleSystemServerProcess(parsedArgs);//3
-	 }
-	 return true;
+     ...
+     int pid;
+     try {
+         parsedArgs = new ZygoteConnection.Arguments(args);//2
+         ZygoteConnection.applyDebuggerSystemProperty(parsedArgs);
+         ZygoteConnection.applyInvokeWithSystemProperty(parsedArgs);
+         /*1*/
+         pid = Zygote.forkSystemServer(
+         parsedArgs.uid, parsedArgs.gid,
+         parsedArgs.gids,
+         parsedArgs.debugFlags,
+         null,
+         parsedArgs.permittedCapabilities,
+         parsedArgs.effectiveCapabilities);
+     } catch (IllegalArgumentException ex) {
+         throw new RuntimeException(ex);
+     }
+     if (pid == 0) {//2
+         if (hasSecondZygote(abiList)) {
+             waitForSecondaryZygote(socketName);
+         }
+         handleSystemServerProcess(parsedArgs);//3
+     }
+     return true;
  }
 ```
 
@@ -274,18 +274,18 @@ private static boolean startSystemServer(String abiList, String socketName)
 
 ```java
 private static void handleSystemServerProcess(
-	ZygoteConnection.Arguments parsedArgs) throws Zygote.MethodAndArgsCaller {
-	...
-	if (parsedArgs.invokeWith != null) {
-	...
-	} else {
-		ClassLoader cl = null;
-		if (systemServerClasspath != null) {
-			cl = createPathClassLoader(systemServerClasspath, parsedArgs.targetSdkVersion);//1
-			Thread.currentThread().setContextClassLoader(cl);
-		}
-		ZygoteInit.zygoteInit(parsedArgs.targetSdkVersion, parsedArgs.remainingArgs, cl);
-	}
+    ZygoteConnection.Arguments parsedArgs) throws Zygote.MethodAndArgsCaller {
+    ...
+    if (parsedArgs.invokeWith != null) {
+    ...
+    } else {
+        ClassLoader cl = null;
+        if (systemServerClasspath != null) {
+            cl = createPathClassLoader(systemServerClasspath, parsedArgs.targetSdkVersion);//1
+            Thread.currentThread().setContextClassLoader(cl);
+        }
+        ZygoteInit.zygoteInit(parsedArgs.targetSdkVersion, parsedArgs.remainingArgs, cl);
+    }
 }
 ```
 
@@ -294,13 +294,13 @@ private static void handleSystemServerProcess(
 
 ```java
 static PathClassLoader createPathClassLoader(String classPath, int targetSdkVersion) {
-	String libraryPath = System.getProperty("java.library.path");
-	return PathClassLoaderFactory.createClassLoader(classPath,
-	        libraryPath,
-	        libraryPath,
-	        ClassLoader.getSystemClassLoader(),
-	        targetSdkVersion,
-	        true /* isNamespaceShared */);
+    String libraryPath = System.getProperty("java.library.path");
+    return PathClassLoaderFactory.createClassLoader(classPath,
+            libraryPath,
+            libraryPath,
+            ClassLoader.getSystemClassLoader(),
+            targetSdkVersion,
+            true /* isNamespaceShared */);
 }
 ```
 
@@ -309,14 +309,14 @@ createPathClassLoader方法中又会调用PathClassLoaderFactory的createClassLo
 
 ```java
 public static PathClassLoader createClassLoader(String dexPath,
-	String librarySearchPath,
-	String libraryPermittedPath,
-	ClassLoader parent,
-	int targetSdkVersion,
-	boolean isNamespaceShared) {
-	PathClassLoader pathClassloader = new PathClassLoader(dexPath, librarySearchPath, parent);
-	...
-	return pathClassloader;
+    String librarySearchPath,
+    String libraryPermittedPath,
+    ClassLoader parent,
+    int targetSdkVersion,
+    boolean isNamespaceShared) {
+    PathClassLoader pathClassloader = new PathClassLoader(dexPath, librarySearchPath, parent);
+    ...
+    return pathClassloader;
 }
 ```
 
