@@ -54,20 +54,20 @@ categories: [知识梳理]
 | [泛型](https://marktsy.github.io/2020/03/30/javagenercity/)      |
 | [内存区域](https://marktsy.github.io/2020/04/05/javaneicun)        |
 | [类加载机制](https://marktsy.github.io/2020/04/05/javaclassloader/) |
-| [反射](https://marktsy.github.io/2020/04/08/javareflect/)        |
+| [反射](https://marktsy.github.io/2020/04/07/javareflect/)        |
 
 ## 设计模式
 
-| 创建型设计模式                                                               | 结构型设计模式 | 行为型设计模式 |
-| --------------------------------------------------------------------- | ------- | ------- |
-| [单例模式](https://marktsy.github.io/2020/04/18/moshidanli/)              | 装饰模式    | 策略模式    |
-| [简单工厂](https://marktsy.github.io/2020/04/19/moshijiandangongchang/)   | 外观模式    | 状态模式    |
-| [工厂方法](https://marktsy.github.io/2020/04/19/moshigongchangfangfa/)    | 享元模式    | 迭代器模式   |
-| [抽象工厂](https://marktsy.github.io/2020/04/19/moshichouxianggongchang/) | 代理模式    | 责任链模式   |
-| [建造者模式](https://marktsy.github.io/2020/04/19/moshijianzaozhe/)        | 组合模式    | 观察者模式   |
-| [原型模式](https://marktsy.github.io/2020/04/19/moshi原型/)                 | 桥接模式    | 访问者模式   |
-|                                                                       | 适配器模式   | 模板模式    |
-|                                                                       |         | 备忘录模式   |
-|                                                                       |         | 解释器模式   |
-|                                                                       |         | 命令模式    |
-|                                                                       |         | 中介者模式   |
+| 创建型设计模式                                                               | 结构型设计模式                                                      | 行为型设计模式 |
+| --------------------------------------------------------------------- | ------------------------------------------------------------ | ------- |
+| [单例模式](https://marktsy.github.io/2020/04/18/moshidanli/)              | [装饰模式](https://marktsy.github.io/2020/04/22/moshizhuangshi/) | 策略模式    |
+| [简单工厂](https://marktsy.github.io/2020/04/19/moshijiandangongchang/)   | [外观模式](https://marktsy.github.io/2020/04/22/moshiwaiguan/)   | 状态模式    |
+| [工厂方法](https://marktsy.github.io/2020/04/19/moshigongchangfangfa/)    | [享元模式](https://marktsy.github.io/2020/04/22/moshixiangyuan/) | 迭代器模式   |
+| [抽象工厂](https://marktsy.github.io/2020/04/19/moshichouxianggongchang/) | [代理模式](https://marktsy.github.io/2020/04/19/moshidaili/)     | 责任链模式   |
+| [建造者模式](https://marktsy.github.io/2020/04/19/moshijianzaozhe/)        | 组合模式                                                         | 观察者模式   |
+| [原型模式](https://marktsy.github.io/2020/04/19/moshiyuanxing/)           | 桥接模式                                                         | 访问者模式   |
+|                                                                       | 适配器模式                                                        | 模板模式    |
+|                                                                       |                                                              | 备忘录模式   |
+|                                                                       |                                                              | 解释器模式   |
+|                                                                       |                                                              | 命令模式    |
+|                                                                       |                                                              | 中介者模式   |
