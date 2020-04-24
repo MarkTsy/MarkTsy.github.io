@@ -13,7 +13,7 @@ Java集合架构
 
 ### 抽象特性
 
-###$ Collector
+### Collector
 
 单数据存储
 
