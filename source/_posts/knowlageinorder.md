@@ -17,6 +17,7 @@ categories: [知识梳理]
 | [角度/弧度](https://marktsy.github.io/2020/03/23/androidviewbase2/)       |
 | [自定义View](https://marktsy.github.io/2020/03/23/androidviewpro1/)      |
 | [绘制基础](https://marktsy.github.io/2020/03/23/androidviewpro2/)         |
+| [事件分发](https://marktsy.github.io/2020/05/06/androidshijian/)          |
 
 | 《架构》                                                                    |
 | ----------------------------------------------------------------------- |
@@ -57,7 +58,6 @@ categories: [知识梳理]
 | [注解](https://marktsy.github.io/2020/04/23/javazhujie/)         |
 | [反射](https://marktsy.github.io/2020/04/07/javareflect/)        |
 | [类加载机制](https://marktsy.github.io/2020/04/05/javaclassloader/) |
-
 
 | 《JVM》                                                   |
 | ------------------------------------------------------- |
