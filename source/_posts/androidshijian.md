@@ -21,7 +21,7 @@ categories: Android
 
 **问题？**
 
-listview中的子view如果有长按事件是否会出现事件的冲突？又滑动又触发了子view的长按
+listview中的子view如果有长按事件是否会出现事件的冲突？又滑动又触发                                                                                                          了子view的长按
 
 查看源码得知， listview进入滑动状态时会调用item的 view.setPressed(false);
 
