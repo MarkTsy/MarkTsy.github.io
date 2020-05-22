@@ -65,15 +65,15 @@ categories: [知识梳理]
 
 ## 面向对象设计七大原则
 
-| 《七大原则》                                                           |
-| -------------------------------------------------------------- |
-| [容器](https://marktsy.github.io/2020/03/12/javacollector/)      |
-| [IO](https://marktsy.github.io/2020/03/12/javaio/)             |
-| [NIO](https://marktsy.github.io/2020/03/12/nio/)               |
-| [泛型](https://marktsy.github.io/2020/03/30/javagenercity/)      |
-| [注解](https://marktsy.github.io/2020/04/23/javazhujie/)         |
-| [反射](https://marktsy.github.io/2020/04/07/javareflect/)        |
-| [类加载机制](https://marktsy.github.io/2020/04/05/javaclassloader/) |
+| 《七大原则》                                                                       |
+| ---------------------------------------------------------------------------- |
+| [单一职责](https://marktsy.github.io/2020/03/08/designpattern/#1-单一职责原则-SRP)     |
+| [接口隔离](https://marktsy.github.io/2020/03/08/designpattern/#6-接口隔离原则-ISP)     |
+| [里氏替换](https://marktsy.github.io/2020/03/08/designpattern/#3-里氏替换原则-LSP)     |
+| [依赖倒置](https://marktsy.github.io/2020/03/08/designpattern/#4-依赖倒置原则-DIP)     |
+| [迪米特](https://marktsy.github.io/2020/03/08/designpattern/#5-迪米特原则-LOD)       |
+| [开闭](https://marktsy.github.io/2020/03/08/designpattern/#2-开闭原则-ASD)         |
+| [合成复用](https://marktsy.github.io/2020/03/08/designpattern/#7-组合-聚合复用原则-CARP) |
 
 ## 23种设计模式
 
