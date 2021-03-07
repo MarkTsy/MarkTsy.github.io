@@ -85,9 +85,8 @@ categories: [知识梳理]
 | [简单工厂](https://marktsy.github.io/2020/04/19/moshijiandangongchang/)   | [外观模式](https://marktsy.github.io/2020/04/22/moshiwaiguan/)   | [状态模式](https://marktsy.github.io/2020/04/23/moshistate/)     |
 | [工厂方法](https://marktsy.github.io/2020/04/19/moshigongchangfangfa/)    | [享元模式](https://marktsy.github.io/2020/04/22/moshixiangyuan/) | 迭代器模式                                                        |
 | [抽象工厂](https://marktsy.github.io/2020/04/19/moshichouxianggongchang/) | [代理模式](https://marktsy.github.io/2020/04/19/moshidaili/)     | 责任链模式                                                        |
-| [建造者模式](https://marktsy.github.io/2020/04/19/moshijianzaozhe/)        | 组合模式                                                         | [观察者模式](https://marktsy.github.io/2020/05/08/moshiguancha/)  |
-| [原型模式](https://marktsy.github.io/2020/04/19/moshiyuanxing/)           | 桥接模式                                                         | 访问者模式                                                        |
-|                                                                       | 适配器模式                                                        | [中介者模式](https://marktsy.github.io/2020/05/22/moshizhongjie/) |
+| [建造者模式](https://marktsy.github.io/2020/04/19/moshijianzaozhe/)       | [组合模式](https://marktsy.github.io/2021/03/07/zuhemoshi/) | [原型模式](https://marktsy.github.io/2020/04/19/moshiyuanxing/)           | [桥接模式](https://marktsy.github.io/2021/03/07/qiaojiemoshi/)     |        访问者模式                                                        |
+|                                                                       | [适配器模式](https://marktsy.github.io/2021/03/07/shipeiqimoshi/)      | [中介者模式](https://marktsy.github.io/2020/05/22/moshizhongjie/) |
 |                                                                       |                                                              | 备忘录模式                                                        |
 |                                                                       |                                                              | 解释器模式                                                        |
 |                                                                       |                                                              | 命令模式                                                         |
