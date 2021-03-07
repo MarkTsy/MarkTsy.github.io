@@ -124,6 +124,7 @@ darkmode: false
 # External url should start with http:// or https://
 menu:
   home: / || home
+  MyDirectory : /MyDirectory/ || book
   # tags: /tags/ || tags
   # categories: /categories/ || th
   archives: /archives/ || archive

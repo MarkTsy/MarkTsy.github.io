@@ -1,11 +1,13 @@
 ---
 title: 知识体系
-date: 2100-01-01 12:00:00
+date: 2021-03-07 15:53:41
 tags: [知识梳理]
 categories: [知识梳理]
 ---
 
-![](knowlageinorder/timg.jpg)
+
+
+![](index/timg.jpg)
 
 <!--more-->
 
