@@ -5,7 +5,6 @@ tags: [知识梳理]
 categories: [知识梳理]
 ---
 
-
 ![](index/timg.jpg)
 
 <!--more-->
@@ -78,38 +77,35 @@ categories: [知识梳理]
 
 ## 23种设计模式
 
-| 创建型设计模式                                                                 | 
-| ---------------------------------------------------------------------------- | 
-| [单例模式](https://marktsy.github.io/2020/04/18/moshidanli/)              	   | 
-| [简单工厂](https://marktsy.github.io/2020/04/19/moshijiandangongchang/)  	   | 
-| [工厂方法](https://marktsy.github.io/2020/04/19/moshigongchangfangfa/)   	   | 
-| [抽象工厂](https://marktsy.github.io/2020/04/19/moshichouxianggongchang/) 	   | 
-| [建造模式](https://marktsy.github.io/2020/04/19/moshijianzaozhe/) 	   		   | 
-| [原型模式](https://marktsy.github.io/2020/04/19/moshiyuanxing/) 	   		   | 
+| 创建型设计模式                                                               |
+| --------------------------------------------------------------------- |
+| [单例模式](https://marktsy.github.io/2020/04/18/moshidanli/)              |
+| [简单工厂](https://marktsy.github.io/2020/04/19/moshijiandangongchang/)   |
+| [工厂方法](https://marktsy.github.io/2020/04/19/moshigongchangfangfa/)    |
+| [抽象工厂](https://marktsy.github.io/2020/04/19/moshichouxianggongchang/) |
+| [建造模式](https://marktsy.github.io/2020/04/19/moshijianzaozhe/)         |
+| [原型模式](https://marktsy.github.io/2020/04/19/moshiyuanxing/)           |
 
-| 结构型设计模式                                                                 | 
-| ---------------------------------------------------------------------------- |
-| [装饰模式](https://marktsy.github.io/2020/04/22/moshizhuangshi/)     		   |
-| [外观模式](https://marktsy.github.io/2020/04/22/moshiwaiguan/)    			   |
-| [享元模式](https://marktsy.github.io/2020/04/22/moshixiangyuan/)     		   |
-| [代理模式](https://marktsy.github.io/2020/04/19/moshidaili/)    			   |
-| [组合模式](https://marktsy.github.io/2021/03/07/zuhemoshi/)      			   |
-| [适配器模式](https://marktsy.github.io/2021/03/07/shipeiqimoshi/)    		   |
-| [桥接模式](https://marktsy.github.io/2021/03/07/qiaojiemoshi/) 				   |
+| 结构型设计模式                                                      |
+| ------------------------------------------------------------ |
+| [装饰模式](https://marktsy.github.io/2020/04/22/moshizhuangshi/) |
+| [外观模式](https://marktsy.github.io/2020/04/22/moshiwaiguan/)   |
+| [享元模式](https://marktsy.github.io/2020/04/22/moshixiangyuan/) |
+| [代理模式](https://marktsy.github.io/2020/04/19/moshidaili/)     |
+| [组合模式](https://marktsy.github.io/2021/03/07/zuhemoshi/)      |
+| [适配器模式](https://marktsy.github.io/2021/03/07/shipeiqimoshi/) |
+| [桥接模式](https://marktsy.github.io/2021/03/07/qiaojiemoshi/)   |
 
-| 结构型设计模式                                                                 |
-| ---------------------------------------------------------------------------- |
-| [策略模式](https://marktsy.github.io/2020/04/23/moshicelue/)     			   |
-| [状态模式](https://marktsy.github.io/2020/04/23/moshistate/)     			   |
-| [观察者模式](https://marktsy.github.io/2020/05/08/moshiguancha/)  			   |
-| 访问者模式    																   |
-| [中介者模式](https://marktsy.github.io/2020/05/22/moshizhongjie/)    		   |
-| 责任链模式   																   |
-| 迭代器模式																	   |
-| 备忘录模式    																   |
-| 解释器模式     																   |
-| 命令模式       																   |
-| [模板模式](https://marktsy.github.io/2020/05/22/moshimoban/) 				   |
-
-
-
+| 行为型设计模式                                                      |
+| ------------------------------------------------------------ |
+| [策略模式](https://marktsy.github.io/2020/04/23/moshicelue/)     |
+| [状态模式](https://marktsy.github.io/2020/04/23/moshistate/)     |
+| [观察者模式](https://marktsy.github.io/2020/05/08/moshiguancha/)  |
+| [访问者模式](https://marktsy.github.io/2021/03/27/fangwenzhemoshi/)  |
+| [中介者模式](https://marktsy.github.io/2020/05/22/moshizhongjie/) |
+| [责任链模式](https://marktsy.github.io/2021/03/27/zerenlianmoshi/) |
+| [迭代器模式](https://marktsy.github.io/2021/03/27/diedaiqimoshi/)  |
+| [备忘录模式](https://marktsy.github.io/2021/03/27/beiwanglumoshi/)  |
+| [解释器模式](https://marktsy.github.io/2021/03/27/jieshiqimoshi/)  |
+| [命令模式](https://marktsy.github.io/2021/03/27/minglingmoshi/)   |
+| [模板模式](https://marktsy.github.io/2020/05/22/moshimoban/)     |
