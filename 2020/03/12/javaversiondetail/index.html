@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="版本下载列表:https:&#x2F;&#x2F;www.oracle.com&#x2F;technetwork&#x2F;java&#x2F;javase&#x2F;archive-139210.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java版本特性">
+<meta property="og:url" content="http://yoursite.com/2020/03/12/javaversiondetail/index.html">
+<meta property="og:site_name" content="TBlog">
+<meta property="og:description" content="版本下载列表:https:&#x2F;&#x2F;www.oracle.com&#x2F;technetwork&#x2F;java&#x2F;javase&#x2F;archive-139210.html">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-12T02:55:11.000Z">
+<meta property="article:modified_time" content="2020-05-18T04:53:23.000Z">
+<meta property="article:author" content="Tsy">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="版本特性">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/12/javaversiondetail/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>Java版本特性 | TBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">TBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-mydirectory">
+
+    <a href="/MyDirectory/" rel="section"><i class="fa fa-fw fa-book"></i>MyDirectory</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/12/javaversiondetail/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tsy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java版本特性
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-12 10:55:11" itemprop="dateCreated datePublished" datetime="2020-03-12T10:55:11+08:00">2020-03-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-18 12:53:23" itemprop="dateModified" datetime="2020-05-18T12:53:23+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="版本下载列表"><a href="#版本下载列表" class="headerlink" title="版本下载列表:"></a>版本下载列表:</h3><p><a href="https://www.oracle.com/technetwork/java/javase/archive-139210.html" target="_blank" rel="noopener">https://www.oracle.com/technetwork/java/javase/archive-139210.html</a></p>
+<a id="more"></a>
+
+<h3 id="Java-1-0"><a href="#Java-1-0" class="headerlink" title="Java 1.0"></a>Java 1.0</h3><p>1996-01-23 Oak(橡树)</p>
+<blockquote>
+<p>初代版本，伟大的一个里程碑，但是是纯解释运行，使用外挂JIT，性能比较差，运行速度慢。</p>
+</blockquote>
+<h3 id="Java-n-1-1"><a href="#Java-n-1-1" class="headerlink" title="Java n 1.1"></a>Java n 1.1</h3><p>1997-02-19</p>
+<blockquote>
+<ul>
+<li>JDBC(Java DataBase Connectivity);</li>
+<li>支持内部类;</li>
+<li>RMI(Remote Method Invocation) ;</li>
+<li>反射;</li>
+<li>Java Bean;</li>
+</ul>
+</blockquote>
+<h3 id="Java-1-2"><a href="#Java-1-2" class="headerlink" title="Java 1.2"></a>Java 1.2</h3><p>1998-12-08 Playground(操场)</p>
+<blockquote>
+<ul>
+<li>集合框架;</li>
+<li>JIT(Just In Time)编译器;</li>
+<li>对打包的Java文件进行数字签名;</li>
+<li>JFC(Java Foundation Classes), 包括Swing 1.0, 拖放和Java2D类库;</li>
+<li>Java插件;</li>
+<li>JDBC中引入可滚动结果集,BLOB,CLOB,批量更新和用户自定义类型;</li>
+<li>Applet中添加声音支持.</li>
+</ul>
+</blockquote>
+<h3 id="Java-1-3"><a href="#Java-1-3" class="headerlink" title="Java 1.3"></a>Java 1.3</h3><p>2000-05-08 Kestrel(红隼)</p>
+<blockquote>
+<ul>
+<li>Java Sound API;</li>
+<li>jar文件索引;</li>
+<li>对Java的各个方面都做了大量优化和增强;</li>
+</ul>
+</blockquote>
+<h3 id="Java-1-4"><a href="#Java-1-4" class="headerlink" title="Java 1.4"></a>Java 1.4</h3><p>2002-02-13 Merlin(隼)</p>
+<blockquote>
+<ul>
+<li>XML处理;</li>
+<li>Java打印服务;</li>
+<li>Logging API;</li>
+<li>Java Web Start;</li>
+<li>JDBC 3.0 API;</li>
+<li>断言;</li>
+<li>Preferences API;</li>
+<li>链式异常处理;</li>
+<li>支持IPV6;</li>
+<li>支持正则表达式;</li>
+<li>引入Imgae I/O API.</li>
+</ul>
+</blockquote>
+<h3 id="Java-5"><a href="#Java-5" class="headerlink" title="Java 5"></a>Java 5</h3><p>2004-09-30 Tiger(老虎)</p>
+<blockquote>
+<ul>
+<li>泛型;</li>
+<li>增强循环,可以使用迭代方式;</li>
+<li>自动装箱与自动拆箱;</li>
+<li>类型安全的枚举;</li>
+<li>可变参数;</li>
+<li>静态引入;</li>
+<li>元数据(注解);</li>
+<li>Instrumentation;</li>
+</ul>
+</blockquote>
+<h3 id="Java-6"><a href="#Java-6" class="headerlink" title="Java 6"></a>Java 6</h3><p>2006-12-11 Mustang(野马)</p>
+<blockquote>
+<ul>
+<li>支持脚本语言;</li>
+<li>JDBC 4.0API;</li>
+<li>Java Compiler API;</li>
+<li>可插拔注解;</li>
+<li>增加对Native PKI(Public Key Infrastructure), Java GSS(Generic Security Service),Kerberos和LDAP(Lightweight Directory Access Protocol)支持;</li>
+<li>继承Web Services;</li>
+</ul>
+</blockquote>
+<h3 id="Java-7"><a href="#Java-7" class="headerlink" title="Java 7"></a>Java 7</h3><p>2011-07-28 Dolphin(海豚)</p>
+<blockquote>
+<ul>
+<li>switch语句块中允许以字符串作为分支条件;</li>
+<li>在创建泛型对象时应用类型推断;</li>
+<li>在一个语句块中捕获多种异常;</li>
+<li>支持动态语言;</li>
+<li>支持try-with-resources(在一个语句块中捕获多种异常);</li>
+<li>引入Java NIO.2开发包;</li>
+<li>数值类型可以用二进制字符串表示,并且可以在字符串表示中添加下划线;</li>
+<li>钻石型语法(在创建泛型对象时应用类型推断);</li>
+<li>null值得自动处理;</li>
+</ul>
+</blockquote>
+<h3 id="Java-8"><a href="#Java-8" class="headerlink" title="Java 8"></a>Java 8</h3><p>2014-03-18 </p>
+<blockquote>
+<ul>
+<li>方法引用 − 方法引用提供了非常有用的语法，可以直接引用已有Java类或对象（实例）的方法或构造器。与lambda联合使用，方法引用可以使语言的构造更紧凑简洁，减少冗余代码。</li>
+<li>默认方法 − 默认方法就是一个在接口里面有了一个实现的方法。</li>
+<li>新工具 − 新的编译工具，如：Nashorn引擎 jjs、 类依赖分析器jdeps。</li>
+<li>Stream API −新添加的Stream API（java.util.stream） 把真正的函数式编程风格引入到Java中。</li>
+<li>Date Time API − 加强对日期与时间的处理。</li>
+<li>Optional 类 − Optional 类已经成为 Java 8 类库的一部分，用来解决空指针异常。</li>
+<li>Nashorn, JavaScript 引擎 − Java 8提供了一个新的Nashorn javascript引擎，它允许我们在JVM上运行特定的javascript应用。</li>
+</ul>
+</blockquote>
+<p>详细参阅:<a href="https://github.com/MarkTsy/TaoNote/blob/master/JAVA/%E5%8F%82%E9%98%85" target="_blank" rel="noopener">http://www.runoob.com/java/java8-new-features.html</a></p>
+<h3 id="Java-9"><a href="#Java-9" class="headerlink" title="Java 9"></a>Java 9</h3><p>2017-09-22</p>
+<blockquote>
+<ul>
+<li>模块系统：模块是一个包的容器，Java 9 最大的变化之一是引入了模块系统（Jigsaw 项目）。</li>
+<li>REPL (JShell)：交互式编程环境。</li>
+<li>HTTP 2 客户端：HTTP/2标准是HTTP协议的最新版本，新的 HTTPClient API 支持 WebSocket 和 HTTP2 流以及服务器推送特性。</li>
+<li>改进的 Javadoc：Javadoc 现在支持在 API 文档中的进行搜索。另外，Javadoc 的输出现在符合兼容 HTML5 标准。</li>
+<li>多版本兼容 JAR 包：多版本兼容 JAR 功能能让你创建仅在特定版本的 Java 环境中运行库程序时选择使用的 class 版本。</li>
+<li>集合工厂方法：List，Set 和 Map 接口中，新的静态工厂方法可以创建这些集合的不可变实例。</li>
+<li>私有接口方法：在接口中使用private私有方法。我们可以使用 private 访问修饰符在接口中编写私有方法。</li>
+<li>进程 API: 改进的 API 来控制和管理操作系统进程。引进 java.lang.ProcessHandle 及其嵌套接口 Info 来让开发者逃离时常因为要获取一个本地进程的 PID 而不得不使用本地代码的窘境。</li>
+<li>改进的 Stream API：改进的 Stream API 添加了一些便利的方法，使流处理更容易，并使用收集器编写复杂的查询。</li>
+<li>改进 try-with-resources：如果你已经有一个资源是 final 或等效于 final 变量,您可以在 try-with-resources 语句中使用该变量，而无需在 try-with-resources 语句中声明一个新变量。</li>
+<li>改进的弃用注解 @Deprecated：注解 @Deprecated 可以标记 Java API 状态，可以表示被标记的 API 将会被移除，或者已经破坏。</li>
+<li>改进钻石操作符(Diamond Operator) ：匿名类可以使用钻石操作符(Diamond Operator)。</li>
+<li>改进 Optional 类：java.util.Optional 添加了很多新的有用方法，Optional 可以直接转为 stream。</li>
+<li>多分辨率图像 API：定义多分辨率图像API，开发者可以很容易的操作和展示不同分辨率的图像了。</li>
+<li>改进的 CompletableFuture API ： CompletableFuture 类的异步机制可以在 ProcessHandle.onExit 方法退出时执行操作。</li>
+<li>轻量级的 JSON API：内置了一个轻量级的JSON API</li>
+<li>响应式流（Reactive Streams) API: Java 9中引入了新的响应式流 API 来支持 Java 9 中的响应式编程。</li>
+</ul>
+</blockquote>
+<p>详细参考:<a href="https://www.oracle.com/technetwork/java/javase/archive-139210.html" target="_blank" rel="noopener">http://www.runoob.com/java/java9-new-features.html</a></p>
+<h3 id="Java-10"><a href="#Java-10" class="headerlink" title="Java 10"></a>Java 10</h3><p>2018-03-21</p>
+<p>根据官网的公开资料，共有12个重要特性，如下：</p>
+<blockquote>
+<ul>
+<li>JEP286，var 局部变量类型推断。</li>
+<li>JEP296，将原来用 Mercurial 管理的众多 JDK 仓库代码，合并到一个仓库中，简化开发和管理过程。</li>
+<li>JEP304，统一的垃圾回收接口。</li>
+<li>JEP307，G1 垃圾回收器的并行完整垃圾回收，实现并行性来改善最坏情况下的延迟。</li>
+<li>JEP310，应用程序类数据 (AppCDS) 共享，通过跨进程共享通用类元数据来减少内存占用空间，和减少启动时间。</li>
+<li>JEP312，ThreadLocal 握手交互。在不进入到全局 JVM 安全点 (Safepoint) 的情况下，对线程执行回调。优化可以只停止单个线程，而不是停全部线程或一个都不停。</li>
+<li>JEP313，移除 JDK 中附带的 javah 工具。可以使用 javac -h 代替。</li>
+<li>JEP314，使用附加的 Unicode 语言标记扩展。</li>
+<li>JEP317，能将堆内存占用分配给用户指定的备用内存设备。</li>
+<li>JEP317，使用 Graal 基于 Java 的编译器，可以预先把 Java 代码编译成本地代码来提升效能。</li>
+<li>JEP318，在 OpenJDK 中提供一组默认的根证书颁发机构证书。开源目前 Oracle 提供的的 Java SE 的根证书，这样 OpenJDK 对开发人员使用起来更方便。</li>
+<li>JEP322，基于时间定义的发布版本，即上述提到的发布周期。版本号为$FEATURE.$INTERIM.$UPDATE.$PATCH，分别是大版本，中间版本，升级包和补丁版本。</li>
+</ul>
+</blockquote>
+<h3 id="Java-11"><a href="#Java-11" class="headerlink" title="Java 11"></a>Java 11</h3><p>2018-09-25 </p>
+<p>翻译后的新特性有：</p>
+<blockquote>
+<ul>
+<li>181:Nest-Based访问控制</li>
+<li>309:动态类文件常量</li>
+<li>315:改善Aarch64 intrinsic</li>
+<li>318:无操作垃圾收集器</li>
+<li>320:消除Java EE和CORBA模块</li>
+<li>321:HTTP客户端(标准)</li>
+<li>323:局部变量的语法λ参数</li>
+<li>324:Curve25519和Curve448关键协议</li>
+<li>327:Unicode 10</li>
+<li>328:飞行记录器</li>
+<li>329:ChaCha20和Poly1305加密算法</li>
+<li>330:发射一列纵队源代码程序</li>
+<li>331:低开销堆分析</li>
+<li>332:传输层安全性(Transport Layer Security,TLS)1.3</li>
+<li>333:动作:一个可伸缩的低延迟垃圾收集器 (实验)</li>
+<li>335:反对Nashorn JavaScript引擎</li>
+<li>336:反对Pack200工具和API</li>
+</ul>
+</blockquote>
+<h3 id="Java-12"><a href="#Java-12" class="headerlink" title="Java 12"></a>Java 12</h3><p>2019-03-19</p>
+<p>作为“功能性版本”，JDK 12 总共包含 8 个新的 JEP ，分别为：</p>
+<blockquote>
+<ul>
+<li>189: Shenandoah: A Low-Pause-Time Garbage Collector (Experimental) ：新增一个名为 Shenandoah 的垃圾回收器，它通过在 Java 线程运行的同时进行疏散 (evacuation) 工作来减少停顿时间。</li>
+<li>230: Microbenchmark Suite：新增一套微基准测试，使开发者能够基于现有的 Java Microbenchmark Harness（JMH）轻松测试 JDK 的性能，并创建新的基准测试。</li>
+<li>325: Switch Expressions (Preview) ：对 switch 语句进行扩展，使其可以用作语句或表达式，简化日常代码。</li>
+<li>334: JVM Constants API ：引入一个 API 来对关键类文件 (key class-file) 和运行时工件的名义描述（nominal descriptions）进行建模，特别是那些可从常量池加载的常量。</li>
+<li>340: One AArch64 Port, Not Two ：删除与 arm64 端口相关的所有源码，保留 32 位 ARM 移植和 64 位 aarch64 移植。</li>
+<li>341: Default CDS Archives ：默认生成类数据共享（CDS）存档。</li>
+<li>344: Abortable Mixed Collections for G1 ：当 G1 垃圾回收器的回收超过暂停目标，则能中止垃圾回收过程。</li>
+<li>346: Promptly Return Unused Committed Memory from G1 ：改进 G1 垃圾回收器，以便在空闲时自动将 Java 堆内存返回给操作系统。</li>
+</ul>
+</blockquote>
+<hr>
+<p>最新的更新信息: <a href="http://openjdk.java.net/jeps/0" target="_blank" rel="noopener">http://openjdk.java.net/jeps/0</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/%E7%89%88%E6%9C%AC%E7%89%B9%E6%80%A7/" rel="tag"># 版本特性</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/11/androidvolleyuse/" rel="prev" title="Android框架Volley使用">
+      <i class="fa fa-chevron-left"></i> Android框架Volley使用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/12/javaio/" rel="next" title="Java IO">
+      Java IO <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#版本下载列表"><span class="nav-number">1.</span> <span class="nav-text">版本下载列表:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-1-0"><span class="nav-number">2.</span> <span class="nav-text">Java 1.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-n-1-1"><span class="nav-number">3.</span> <span class="nav-text">Java n 1.1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-1-2"><span class="nav-number">4.</span> <span class="nav-text">Java 1.2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-1-3"><span class="nav-number">5.</span> <span class="nav-text">Java 1.3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-1-4"><span class="nav-number">6.</span> <span class="nav-text">Java 1.4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-5"><span class="nav-number">7.</span> <span class="nav-text">Java 5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-6"><span class="nav-number">8.</span> <span class="nav-text">Java 6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-7"><span class="nav-number">9.</span> <span class="nav-text">Java 7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-8"><span class="nav-number">10.</span> <span class="nav-text">Java 8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-9"><span class="nav-number">11.</span> <span class="nav-text">Java 9</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-10"><span class="nav-number">12.</span> <span class="nav-text">Java 10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-11"><span class="nav-number">13.</span> <span class="nav-text">Java 11</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-12"><span class="nav-number">14.</span> <span class="nav-text">Java 12</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Tsy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">97</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">135</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tsy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言在实际的开发过程中，总有系统自带的控件无法满足的情况，这个时候就需要我们自己定义view，我们可以更灵活的定义view的排版方式，绘制方式，回调等等..">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 自定义View">
+<meta property="og:url" content="http://yoursite.com/2020/03/23/androidviewpro1/index.html">
+<meta property="og:site_name" content="TBlog">
+<meta property="og:description" content="前言在实际的开发过程中，总有系统自带的控件无法满足的情况，这个时候就需要我们自己定义view，我们可以更灵活的定义view的排版方式，绘制方式，回调等等..">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/03/23/androidviewpro1/C:%5CUsers%5Ctao%5CDesktop%5Cgithubpage%5Cblog%5Csource_posts%5Candroidviewpro1%5C392e6a7067.jpg">
+<meta property="article:published_time" content="2020-03-23T08:05:38.000Z">
+<meta property="article:modified_time" content="2020-05-18T04:53:23.000Z">
+<meta property="article:author" content="Tsy">
+<meta property="article:tag" content="自定义View">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/23/androidviewpro1/C:%5CUsers%5Ctao%5CDesktop%5Cgithubpage%5Cblog%5Csource_posts%5Candroidviewpro1%5C392e6a7067.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/23/androidviewpro1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>Android 自定义View | TBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">TBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-mydirectory">
+
+    <a href="/MyDirectory/" rel="section"><i class="fa fa-fw fa-book"></i>MyDirectory</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/23/androidviewpro1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tsy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android 自定义View
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-23 16:05:38" itemprop="dateCreated datePublished" datetime="2020-03-23T16:05:38+08:00">2020-03-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-18 12:53:23" itemprop="dateModified" datetime="2020-05-18T12:53:23+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在实际的开发过程中，总有系统自带的控件无法满足的情况，这个时候就需要我们自己定义view，我们可以更灵活的定义view的排版方式，绘制方式，回调等等.. </p>
+<a id="more"></a>
+
+<h4 id="绘制流程"><a href="#绘制流程" class="headerlink" title="绘制流程"></a>绘制流程</h4><p>我们的界面，都是通过viewgroup层层嵌套viewgroup或者view的方式来实现的，那这个view树的绘制流程是如何的呢？总共分三步：</p>
+<blockquote>
+<p>Measure(测量) -&gt; Layout(布局) -&gt; Draw(绘制)</p>
+</blockquote>
+<p>上面的三个方法递归调用所有的子view，确定好大小，位置之后，开始绘制</p>
+<h5 id="Measure-测量"><a href="#Measure-测量" class="headerlink" title="Measure(测量)"></a>Measure(测量)</h5><p>View的大小不仅由自身所决定，同时也会受到父控件的影响，为了我们的控件能更好的适应各种情况，一般会自己进行测量自己的宽高，然后告诉父控件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">int</span> widthsize = MeasureSpec.getSize(widthMeasureSpec); <span class="comment">//取出宽度的确切数值</span></span><br><span class="line">     <span class="keyword">int</span> widthmode = MeasureSpec.getMode(widthMeasureSpec); <span class="comment">//取出宽度的测量模式</span></span><br><span class="line">     <span class="keyword">int</span> heightsize = MeasureSpec.getSize(heightMeasureSpec); <span class="comment">//取出高度的确切数值</span></span><br><span class="line">     <span class="keyword">int</span> heightmode = MeasureSpec.getMode(heightMeasureSpec); <span class="comment">//取出高度的测量模式</span></span><br><span class="line">     setMeasuredDimension(widthsize, heightsize);  <span class="comment">//告诉父view自己的宽高</span></span><br><span class="line"></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>从上面可以看出 onMeasure 函数中有 widthMeasureSpec 和 heightMeasureSpec 这两个 int 类型的参数， 毫无疑问他们是和宽高相关的， 但它们其实不是宽和高， 而是由<strong>宽、高和各自方向上对应的测量模式</strong>来合成的一个值：</p>
+<p><strong>测量模式一共有三种：</strong></p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th align="center">二进制数值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UNSPECIFIED</td>
+<td align="center">00</td>
+<td>默认值，父控件没有给子view任何限制，子View可以设置为任意大小。</td>
+</tr>
+<tr>
+<td>EXACTLY</td>
+<td align="center">01</td>
+<td>表示父控件已经确切的指定了子View的大小。</td>
+</tr>
+<tr>
+<td>AT_MOST</td>
+<td align="center">10</td>
+<td>表示子View具体大小没有尺寸限制，但是存在上限，上限一般为父View大小。</td>
+</tr>
+</tbody></table>
+<p>在int类型的32位二进制位中，31-30这两位表示测量模式,29~0这三十位表示宽和高的实际值</p>
+<h5 id="Layout-布局"><a href="#Layout-布局" class="headerlink" title="Layout(布局)"></a>Layout(布局)</h5><p>确定布局的函数是onLayout，它用于确定子View的位置，在自定义ViewGroup中会用到，他调用的是子View的layout函数。</p>
+<p>在自定义ViewGroup中，onLayout一般是循环取出子View，然后经过计算得出各个子View位置的坐标值，然后用以下函数设置子View位置。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">child.layout(l, t, r, b);</span><br></pre></td></tr></table></figure>
+
+<p>四个参数分别为：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+<th>对应的函数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>l</td>
+<td>View左侧距父View左侧的距离</td>
+<td>getLeft();</td>
+</tr>
+<tr>
+<td>t</td>
+<td>View顶部距父View顶部的距离</td>
+<td>getTop();</td>
+</tr>
+<tr>
+<td>r</td>
+<td>View右侧距父View左侧的距离</td>
+<td>getRight();</td>
+</tr>
+<tr>
+<td>b</td>
+<td>View底部距父View顶部的距离</td>
+<td>getBottom();</td>
+</tr>
+</tbody></table>
+<p><img src="/2020/03/23/androidviewpro1/C:%5CUsers%5Ctao%5CDesktop%5Cgithubpage%5Cblog%5Csource_posts%5Candroidviewpro1%5C392e6a7067.jpg" alt></p>
+<h5 id="Draw-绘制"><a href="#Draw-绘制" class="headerlink" title="Draw(绘制)"></a>Draw(绘制)</h5><p>onDraw是实际绘制的部分，也就是我们真正关心的部分，使用的是Canvas绘图。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;        </span><br><span class="line">    <span class="keyword">super</span>.onDraw(canvas);</span><br><span class="line">    <span class="comment">//我们可以通过canvas.drawxxx 的方法在画布上绘制你想要的内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="自定义View-ViewGroup"><a href="#自定义View-ViewGroup" class="headerlink" title="自定义View,ViewGroup"></a>自定义View,ViewGroup</h4><p>我们在实现自定义view的时候，大部分都是extends View，或者ViewGroup</p>
+<h5 id="1-自定义ViewGroup"><a href="#1-自定义ViewGroup" class="headerlink" title="1.自定义ViewGroup"></a>1.自定义ViewGroup</h5><p>自定义ViewGroup一般是利用现有的组件根据特定的布局方式来组成新的组件，大多继承自ViewGroup或各种Layout，包含有子View。</p>
+<blockquote>
+<p>例如：应用底部导航条中的条目，一般都是上面图标(ImageView)，下面文字(TextView)，那么这两个就可以用自定义ViewGroup组合成为一个Veiw，提供两个属性分别用来设置文字和图片，使用起来会更加方便。</p>
+</blockquote>
+<h5 id="2-自定义View"><a href="#2-自定义View" class="headerlink" title="2.自定义View"></a>2.自定义View</h5><p>在没有现成的View，需要自己实现的时候，就使用自定义View，一般继承自View，SurfaceView或其他的View，不包含子View。</p>
+<blockquote>
+<p>例如：制作一个支持自动加载网络图片的ImageView，制作图表等。</p>
+</blockquote>
+<p>自定义View在大多数情况下都有替代方案，利用图片或者组合动画来实现，但是使用后者可能会面临内存耗费过大，制作麻烦等诸多问题。</p>
+<h5 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SloopView</span><span class="params">(Context context)</span> </span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SloopView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SloopView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SloopView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr, <span class="keyword">int</span> defStyleRes)</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码创建实例会用第一个构造</p>
+<p>xml创建会调用二个构造</p>
+<p>后两个构造函数可以接受默认的属性/样式</p>
+<h5 id="onSizeChanged"><a href="#onSizeChanged" class="headerlink" title="onSizeChanged"></a>onSizeChanged</h5><p>View的大小不仅由View本身控制，而且受父控件的影响，所以我们在确定View大小的时候最好使用系统提供的onSizeChanged回调函数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onSizeChanged</span><span class="params">(<span class="keyword">int</span> w, <span class="keyword">int</span> h, <span class="keyword">int</span> oldw, <span class="keyword">int</span> oldh)</span> </span>&#123;                </span><br><span class="line">    <span class="keyword">super</span>.onSizeChanged(w, h, oldw, oldh);    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，它又四个参数，分别为 宽度，高度，上一次宽度，上一次高度。</p>
+<p>这个函数比较简单，<strong>我们只需关注 宽度(w), 高度(h) 即可，这两个参数就是View最终的大小。</strong></p>
+<h5 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h5><table>
+<thead>
+<tr>
+<th align="center">步骤</th>
+<th>关键字</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td>构造函数</td>
+<td>初始化(初始化画笔Paint)</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td>onMeasure</td>
+<td>测量View的大小(暂时不用关心)</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td>onSizeChanged</td>
+<td>确定View大小(记录当前View的宽高)</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td>onLayout</td>
+<td>确定子View布局(无子View，不关心)</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td>onDraw</td>
+<td>实际绘制内容(绘制饼状图)</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td>提供接口</td>
+<td>提供接口(提供设置数据的接口)</td>
+</tr>
+</tbody></table>
+<p><strong>Tips：</strong></p>
+<p>1.View 控件不被ViewGroup包裹的话 它是没有大小的</p>
+<p>2.dispatchDraw() 会通知每一个子view 进行绘制 调用draw 方法</p>
+<p>3.requestLayout(); 会进行重新的布局</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89View/" rel="tag"># 自定义View</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/23/androidviewbase3/" rel="prev" title="Android 颜色">
+      <i class="fa fa-chevron-left"></i> Android 颜色
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/23/androidviewpro2/" rel="next" title="Android 基础绘制">
+      Android 基础绘制 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绘制流程"><span class="nav-number">2.</span> <span class="nav-text">绘制流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Measure-测量"><span class="nav-number">2.1.</span> <span class="nav-text">Measure(测量)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Layout-布局"><span class="nav-number">2.2.</span> <span class="nav-text">Layout(布局)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Draw-绘制"><span class="nav-number">2.3.</span> <span class="nav-text">Draw(绘制)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义View-ViewGroup"><span class="nav-number">3.</span> <span class="nav-text">自定义View,ViewGroup</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-自定义ViewGroup"><span class="nav-number">3.1.</span> <span class="nav-text">1.自定义ViewGroup</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-自定义View"><span class="nav-number">3.2.</span> <span class="nav-text">2.自定义View</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#构造方法"><span class="nav-number">3.3.</span> <span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onSizeChanged"><span class="nav-number">3.4.</span> <span class="nav-text">onSizeChanged</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#流程"><span class="nav-number">3.5.</span> <span class="nav-text">流程</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Tsy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">97</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">135</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tsy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

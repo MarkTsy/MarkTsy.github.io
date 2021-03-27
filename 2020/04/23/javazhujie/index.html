@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言注解对于Java开发人员来说肯定都不陌生, Web开发中许多java框架都大量使用注解，如Hibernate\Jersey\Spring. Android开发中Retofit以及Dragger等一些依赖注入的框架也都很常见.自Java5.0版本引入注解之后，它就成为了Java平台中非常重要的一部分. 并且在Java8.0之后进行了加强.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java注解">
+<meta property="og:url" content="http://yoursite.com/2020/04/23/javazhujie/index.html">
+<meta property="og:site_name" content="TBlog">
+<meta property="og:description" content="前言注解对于Java开发人员来说肯定都不陌生, Web开发中许多java框架都大量使用注解，如Hibernate\Jersey\Spring. Android开发中Retofit以及Dragger等一些依赖注入的框架也都很常见.自Java5.0版本引入注解之后，它就成为了Java平台中非常重要的一部分. 并且在Java8.0之后进行了加强.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-23T01:31:01.000Z">
+<meta property="article:modified_time" content="2020-05-18T04:53:23.000Z">
+<meta property="article:author" content="Tsy">
+<meta property="article:tag" content="注解">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/04/23/javazhujie/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>Java注解 | TBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">TBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-mydirectory">
+
+    <a href="/MyDirectory/" rel="section"><i class="fa fa-fw fa-book"></i>MyDirectory</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/23/javazhujie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tsy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java注解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-23 09:31:01" itemprop="dateCreated datePublished" datetime="2020-04-23T09:31:01+08:00">2020-04-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-18 12:53:23" itemprop="dateModified" datetime="2020-05-18T12:53:23+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>注解对于Java开发人员来说肯定都不陌生, Web开发中许多java框架都大量使用注解，如Hibernate\Jersey\Spring. Android开发中Retofit以及Dragger等一些依赖注入的框架也都很常见.自Java5.0版本引入注解之后，它就成为了Java平台中非常重要的一部分. 并且在Java8.0之后进行了加强. </p>
+<a id="more"></a>
+
+<p><strong>官方英文教程地址</strong>: <a href="https://docs.oracle.com/javase/tutorial/java/annotations/" target="_blank" rel="noopener">https://docs.oracle.com/javase/tutorial/java/annotations/</a><br><strong>个人翻译教程地址</strong>: <a href="http://blog.csdn.net/lihenair/article/details/51134716" target="_blank" rel="noopener">http://blog.csdn.net/lihenair/article/details/51134716</a></p>
+<h3 id="1-什么是注解"><a href="#1-什么是注解" class="headerlink" title="1.什么是注解"></a>1.什么是注解</h3><p>用一个词就可以描述注解, 那就是元数据, 即一种描述数据的数据. 所以, 可以说注解就是源代码的元数据.</p>
+<h3 id="2-修饰对象"><a href="#2-修饰对象" class="headerlink" title="2.修饰对象"></a>2.修饰对象</h3><p>注解可以被用在包, 类, 方法, 变量, 参数上. 自Java8起, 有一种注解几乎可以被放在代码的任何位置, 叫做类型注解.</p>
+<h3 id="3-消费器"><a href="#3-消费器" class="headerlink" title="3.消费器"></a>3.消费器</h3><p>注解本身并不包含任何功能逻辑, 它们是利用被注解代码并根据注解信息产生不同行为的系统或者应用程序.<br>例如，在Java自带的内建注解（元注解）中，消费器是执行被注解代码的JVM。还有其他稍后谈到的其他例子，例如JUnit，消费器是读取，分析被注解代码的JUnit处理程序，它还可以决定测试单元和方法执行顺序.<br>消费器使用Java中的反射机制来读取和分析被注解的源代码。使用的主要的包有：java.lang, java.lang.reflect.</p>
+<h3 id="4-注解语法和元素"><a href="#4-注解语法和元素" class="headerlink" title="4.注解语法和元素"></a>4.注解语法和元素</h3><p>声明一个注解需要使用“@”作为前缀，这便向编译器说明，该元素为注解。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Annotation</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">annotatedMehod</span><span class="params">()</span> </span>&#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述的注解名称为Annotation，它正在注解annotatedMethod方法。编译器会处理它。注解可以以键值对的形式持有有很多元素，即注解的属性。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Annotation</span>(</span><br><span class="line"> info = <span class="string">"I am an annotation"</span>,</span><br><span class="line"> counter = <span class="string">"55"</span></span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">annotatedMehod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">...</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果注解只包含一个元素（或者只需要指定一个元素的值，其它则使用默认值），可以像这样声明：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Annotation</span>(<span class="string">"I am an annotation"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">annotatedMehod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>就像我们看到的一样，如果没有元素需要被指定，则不需要括号。多个注解可以使用在同一代码上，例如类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@ Annotation (info = <span class="string">"Uauo"</span>)</span><br><span class="line">@ Annotation2</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AnnotatedClass</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>一些java本身提供的开箱即用的注解，我们称之为内建注解。也可以定义你自己的注解，称之为子定义注解。</p>
+<h3 id="5-內建注解"><a href="#5-內建注解" class="headerlink" title="5.內建注解"></a>5.內建注解</h3><p>Java语言自带了一系列的注解。在本章中我们将阐述最重要的一部分。这个清单只涉及了Java语言最核心的包，未包含标准JRE中所有包和库如JAXB或Servlet规范。</p>
+<p>以下讨论到的注解中有一些被称之为Meta注解，它们的目的注解其他注解，并且包含关于其它注解的信息。</p>
+<p><strong>@Retention：</strong></p>
+<p>这个注解注在其他注解上，并用来说明如何存储已被标记的注解。这是一种元注解，用来标记注解并提供注解的信息。<br>可能的值是：<br>SOURCE：表明这个注解会被编译器忽略，并只会保留在源代码中。<br>CLASS:表明这个注解会通过编译驻留在CLASS文件，但会被JVM在运行时忽略,正因为如此,其在运行时不可见。<br>RUNTIME：表示这个注解会被JVM获取，并在运行时通过反射获取。<br>java.lang.annotation.RetentionPolicy 类中通过enum封装以上内容</p>
+<p><strong>@Target：</strong></p>
+<p>这个注解用于限制某个元素可以被注解的类型。例如：</p>
+<blockquote>
+<p>ANNOTATION_TYPE 表示该注解可以应用到其他注解上<br>CONSTRUCTOR 表示可以使用到构造器上<br>FIELD 表示可以使用到域或属性上<br>LOCAL_VARIABLE表示可以使用到局部变量上。<br>METHOD可以使用到方法级别的注解上。<br>PACKAGE可以使用到包声明上。<br>PARAMETER可以使用到方法的参数上。<br>TYPE可以使用到一个类的任何元素上。</p>
+</blockquote>
+<p>java.lang.annotation.ElementType 类中通过enum封住以上类型</p>
+<p><strong>@Documented：</strong></p>
+<p>被注解的元素将会作为Javadoc产生的文档中的内容。注解都默认不会成为成为文档中的内容。这个注解可以对其它注解使用。</p>
+<p><strong>@Inherited：</strong></p>
+<p>在默认情况下，注解不会被子类继承。被此注解标记的注解会被所有子类继承。这个注解可以对类使用。</p>
+<p><strong>@Deprecated：</strong></p>
+<p>说明被标记的元素不应该再度使用。这个注解会让编译器产生警告消息。可以使用到方法，类和域上。相应的解释和原因，包括另一个可取代的方法应该同时和这个注解使用。</p>
+<p><strong>@SuppressWarnings：</strong></p>
+<p>说明编译器不会针对指定的一个或多个原因产生警告。例如：如果我们不想因为存在尚未使用的私有方法而得到警告可以这样做：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SuppressWarnings</span>( <span class="string">"unused"</span>)</span><br><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">myNotUsedMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line"> ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通常,编译器会因为没调用该方而产生警告; 用了注解抑制了这种行为。该注解需要一个或多个参数来指定抑制的警告类型。</p>
+<p><strong>@Override：</strong></p>
+<p>向编译器说明被注解元素是重写的父类的一个元素。在重写父类元素的时候此注解并非强制性的，不过可以在重写错误时帮助编译器产生错误以提醒我们。比如子类方法的参数和父类不匹配，或返回值类型不同。</p>
+<p><strong>@SafeVarargs：</strong></p>
+<p>断言方法或者构造器的代码不会对参数进行不安全的操作。在Java的后续版本中，使用这个注解时将会令编译器产生一个错误在编译期间防止潜在的不安全操作<br>更多信息请参考：<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/SafeVarargs.html" target="_blank" rel="noopener">http://docs.oracle.com/javase/7/docs/api/java/lang/SafeVarargs.html</a></p>
+<h3 id="6-自定义注解"><a href="#6-自定义注解" class="headerlink" title="6.自定义注解"></a>6.自定义注解</h3><p><strong>声明:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> AnnotationDemo &#123;</span><br><span class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">    <span class="function">String <span class="title">type</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>指定注解修饰方法, 运行时有效, 两个元素为name和type<br><strong>使用:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@AnnotationDemo</span>(type = <span class="string">"fruit"</span>, name = <span class="string">"apple"</span>)</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">anno</span><span class="params">()</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>解析注解:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Method method = <span class="keyword">null</span>;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">          method = AnnotationActivity.class.getMethod("anno");</span><br><span class="line">      &#125; <span class="keyword">catch</span> (NoSuchMethodException e) &#123;</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      Log.e(<span class="string">"Seeyou"</span>, method.getName());</span><br><span class="line"></span><br><span class="line">      AnnotationDemo annotation = method.getAnnotation(AnnotationDemo<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">      Log.e(<span class="string">"Seeyou"</span>, <span class="string">"type : "</span> + annotation.type());</span><br><span class="line">      Log.e(<span class="string">"Seeyou"</span>, <span class="string">"name : "</span> + annotation.name());</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B3%A8%E8%A7%A3/" rel="tag"># 注解</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/23/moshistate/" rel="prev" title="状态模式">
+      <i class="fa fa-chevron-left"></i> 状态模式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/06/androidshijian/" rel="next" title="Android事件分发">
+      Android事件分发 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-什么是注解"><span class="nav-number">2.</span> <span class="nav-text">1.什么是注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-修饰对象"><span class="nav-number">3.</span> <span class="nav-text">2.修饰对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-消费器"><span class="nav-number">4.</span> <span class="nav-text">3.消费器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-注解语法和元素"><span class="nav-number">5.</span> <span class="nav-text">4.注解语法和元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-內建注解"><span class="nav-number">6.</span> <span class="nav-text">5.內建注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-自定义注解"><span class="nav-number">7.</span> <span class="nav-text">6.自定义注解</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Tsy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">97</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">135</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tsy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

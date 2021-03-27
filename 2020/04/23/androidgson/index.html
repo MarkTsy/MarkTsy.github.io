@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言Gson是google推出的用来解析json数据的开源框架,  简单的数据格式通过原生的框架JsonObject或者JsonArray还好, 复杂的数据格式的情况下会很繁琐, 了解了一下Gson的简单用法记录下来, 也方便看到这篇blog的同学能够快速上手这个框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gson使用">
+<meta property="og:url" content="http://yoursite.com/2020/04/23/androidgson/index.html">
+<meta property="og:site_name" content="TBlog">
+<meta property="og:description" content="前言Gson是google推出的用来解析json数据的开源框架,  简单的数据格式通过原生的框架JsonObject或者JsonArray还好, 复杂的数据格式的情况下会很繁琐, 了解了一下Gson的简单用法记录下来, 也方便看到这篇blog的同学能够快速上手这个框架">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/04/23/androidgson/20160812191747_76678.png">
+<meta property="article:published_time" content="2020-04-23T00:59:59.000Z">
+<meta property="article:modified_time" content="2020-05-18T04:53:23.000Z">
+<meta property="article:author" content="Tsy">
+<meta property="article:tag" content="gson">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/04/23/androidgson/20160812191747_76678.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/04/23/androidgson/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>Gson使用 | TBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">TBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-mydirectory">
+
+    <a href="/MyDirectory/" rel="section"><i class="fa fa-fw fa-book"></i>MyDirectory</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/23/androidgson/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tsy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Gson使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-23 08:59:59" itemprop="dateCreated datePublished" datetime="2020-04-23T08:59:59+08:00">2020-04-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-18 12:53:23" itemprop="dateModified" datetime="2020-05-18T12:53:23+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>Gson是google推出的用来解析json数据的开源框架,  简单的数据格式通过原生的框架JsonObject或者JsonArray还好, 复杂的数据格式的情况下会很繁琐, 了解了一下Gson的简单用法记录下来, 也方便看到这篇blog的同学能够快速上手这个框架</p>
+<a id="more"></a>
+
+<h4 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用:"></a><strong>简单使用:</strong></h4><p><strong>Json语法:</strong></p>
+<ul>
+<li>数据在名称/值对中</li>
+<li>数据由逗号分隔</li>
+<li>花括号保存对象</li>
+<li>方括号保存数组</li>
+</ul>
+<p><strong>Gson解析Bean:</strong></p>
+<p><strong>Json数据内容:</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"App"</span>: <span class="string">"http://apk.yoolauncher.com/apk/14588716557753.apk"</span>,</span><br><span class="line">    <span class="attr">"Apps"</span>: <span class="string">"3.42M"</span>,</span><br><span class="line">    <span class="attr">"Auth"</span>: <span class="string">"邻家胖子"</span>,</span><br><span class="line">    <span class="attr">"DC"</span>: <span class="number">11628</span>,</span><br><span class="line">    <span class="attr">"Id"</span>: <span class="string">"6510"</span>,</span><br><span class="line">    <span class="attr">"Name"</span>: <span class="string">"淡雅女子7"</span>,</span><br><span class="line">    <span class="attr">"Rem"</span>: <span class="string">"&lt;p&gt;when can i see you again，淡雅女子第七季。&lt;/p&gt;</span></span><br><span class="line"><span class="string">    &lt;p&gt;本主题不包含YOO桌面，必需下载安装YOO桌面才能正常使用.YOO桌面自适配所有机型，占用内存少，可以实现多屏壁纸，新增了天气时钟和一键开关、一键清理、搜索条的插件;YOO桌面拥有海量主题随心换，专业的主题制作团队，海量精美主题免费下载！YOO桌面主题技术支持:143659751.&lt;/p&gt;"</span>    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>** 创建Theme Bean**</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bean</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String App;</span><br><span class="line">    <span class="keyword">private</span> String Apps;</span><br><span class="line">    <span class="keyword">private</span> String Auth;</span><br><span class="line">    <span class="keyword">private</span> String DC;</span><br><span class="line">    <span class="keyword">private</span> String Id;</span><br><span class="line">    <span class="keyword">private</span> String Name;</span><br><span class="line">    <span class="keyword">private</span> String Rem;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getApp</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> App; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setApp</span><span class="params">(String app)</span> </span>&#123; App = app; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getApps</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> Apps; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setApps</span><span class="params">(String apps)</span> </span>&#123; Apps = apps; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getAuth</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> Auth; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAuth</span><span class="params">(String auth)</span> </span>&#123; Auth = auth; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDC</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> DC; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDC</span><span class="params">(String DC)</span> </span>&#123; <span class="keyword">this</span>.DC = DC; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getId</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> Id; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(String id)</span> </span>&#123; Id = id; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> Name; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123; Name = name; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getRem</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> Rem; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRem</span><span class="params">(String rem)</span> </span>&#123; Rem = rem; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>解析Bean代码</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Gson gson = <span class="keyword">new</span> GsonBuilder().setPrettyPrinting().create();</span><br><span class="line">Bean bean = gson.fromJson(jsonString, Bean<span class="class">.<span class="keyword">class</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Gson解析数组:</strong></p>
+<p><strong>Json数据内容</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"hotword"</span>: <span class="string">"向艳梅斩获金牌"</span>,</span><br><span class="line">        <span class="attr">"url"</span>: <span class="string">"http://m.yz2.sm.cn/s?q=%E5%90%91%E8%89%B3%E6%A2%85%E6%96%A9%E8%8E%B7%E9%87%91%E7%89%8C&amp;by=hot&amp;from=wm635479"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"hotword"</span>: <span class="string">"傅园慧网络直播"</span>,</span><br><span class="line">        <span class="attr">"url"</span>: <span class="string">"http://m.yz2.sm.cn/s?q=%E5%82%85%E5%9B%AD%E6%85%A7%E7%BD%91%E7%BB%9C%E7%9B%B4%E6%92%AD&amp;by=hot&amp;from=wm635479"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"hotword"</span>: <span class="string">"亲哥偷走23万"</span>,</span><br><span class="line">        <span class="attr">"url"</span>: <span class="string">"http://m.yz2.sm.cn/s?q=%E4%BA%B2%E5%93%A5%E5%81%B7%E8%B5%B023%E4%B8%87&amp;by=hot&amp;from=wm635479"</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p><strong>创建热词Bean</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HotWords</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String hotword;</span><br><span class="line">    <span class="keyword">private</span> String url;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getHotword</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> hotword; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setHotword</span><span class="params">(String hotword)</span> </span>&#123; <span class="keyword">this</span>.hotword = hotword; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUrl</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> url; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUrl</span><span class="params">(String url)</span> </span>&#123; <span class="keyword">this</span>.url = url; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>解析代码</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Gson gson = <span class="keyword">new</span> GsonBuilder().setPrettyPrinting().create();</span><br><span class="line">Bean bean = gson.fromJson(jsonString, <span class="keyword">new</span> TypeToken&lt;List&lt;Bean&gt;&gt;()&#123;&#125;.getType());</span><br></pre></td></tr></table></figure>
+
+<p><strong>复杂解析方式:</strong></p>
+<p>内部进行对象 集合嵌套</p>
+<p>复杂数据格式: (天气数据)</p>
+<p><img src="/2020/04/23/androidgson/20160812191747_76678.png" alt></p>
+<p>整体视为 status,  内部包含 results 数组, results 单个项目内包含 weather_data 数组</p>
+<p><strong>首先定义status Bean</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Status</span>   </span></span><br><span class="line"><span class="class"></span>&#123;  </span><br><span class="line">        <span class="keyword">private</span> String error;  </span><br><span class="line">        <span class="keyword">private</span> String status;  </span><br><span class="line">        <span class="keyword">private</span> String date;  </span><br><span class="line">        <span class="keyword">private</span> List&lt;Results&gt; results;  </span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getError</span><span class="params">()</span></span>&#123;   <span class="keyword">return</span> error;   &#125;  </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setError</span><span class="params">(String error)</span></span>&#123; <span class="keyword">this</span>.error = error;   &#125;  </span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getStatus</span><span class="params">()</span></span>&#123;  <span class="keyword">return</span> status; &#125;  </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStatus</span><span class="params">(String status)</span></span>&#123;  <span class="keyword">this</span>.status = status; &#125;  </span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getDate</span><span class="params">()</span></span>&#123;  <span class="keyword">return</span> date;  &#125;  </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDate</span><span class="params">(String date)</span></span>&#123; <span class="keyword">this</span>.date = date;&#125;  </span><br><span class="line">        <span class="function"><span class="keyword">public</span> List&lt;Results&gt; <span class="title">getResults</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> results;&#125;  </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setResults</span><span class="params">(List&lt;Results&gt; results)</span></span>&#123; <span class="keyword">this</span>.results = results; &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>定义Results Bean</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Results</span>   </span></span><br><span class="line"><span class="class"></span>&#123;     </span><br><span class="line">    <span class="keyword">private</span> String currentCity;  </span><br><span class="line">    <span class="keyword">private</span> List&lt;Weather&gt; weather_data;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getCurrentCity</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> currentCity;  &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCurrentCity</span><span class="params">(String currentCity)</span> </span>&#123; <span class="keyword">this</span>.currentCity = currentCity; &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Weather&gt; <span class="title">getWeather_data</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> weather_data; &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWeather_data</span><span class="params">(List&lt;Weather&gt; weather_data)</span> </span>&#123; <span class="keyword">this</span>.weather_data = weather_data; &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>定义Weather Bean</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Weather</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> String date;  </span><br><span class="line">                <span class="keyword">private</span> String dayPictureUrl;  </span><br><span class="line">                <span class="keyword">private</span> String nightPictureUrl;  </span><br><span class="line">                <span class="keyword">private</span> String weather;  </span><br><span class="line">                <span class="keyword">private</span> String wind;  </span><br><span class="line">                <span class="keyword">private</span> String temperature;  </span><br><span class="line">                <span class="function"><span class="keyword">public</span> String <span class="title">getDate</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> date; &#125;  </span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDate</span><span class="params">(String date)</span> </span>&#123; <span class="keyword">this</span>.date = date; &#125;  </span><br><span class="line">                <span class="function"><span class="keyword">public</span> String <span class="title">getDayPictureUrl</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> dayPictureUrl; &#125;  </span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDayPictureUrl</span><span class="params">(String dayPictureUrl)</span> </span>&#123; <span class="keyword">this</span>.dayPictureUrl = dayPictureUrl; &#125;  </span><br><span class="line">                <span class="function"><span class="keyword">public</span> String <span class="title">getNightPictureUrl</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> nightPictureUrl; &#125;  </span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNightPictureUrl</span><span class="params">(String nightPictureUrl)</span> </span>&#123; <span class="keyword">this</span>.nightPictureUrl = nightPictureUrl; &#125;  </span><br><span class="line">                <span class="function"><span class="keyword">public</span> String <span class="title">getWeather</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> weather; &#125;  </span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWeather</span><span class="params">(String weather)</span> </span>&#123; <span class="keyword">this</span>.weather = weather; &#125;  </span><br><span class="line">                <span class="function"><span class="keyword">public</span> String <span class="title">getWind</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> wind; &#125;  </span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWind</span><span class="params">(String wind)</span> </span>&#123; <span class="keyword">this</span>.wind = wind; &#125;  </span><br><span class="line">                <span class="function"><span class="keyword">public</span> String <span class="title">getTemperature</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> temperature; &#125;  </span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTemperature</span><span class="params">(String temperature)</span> </span>&#123; <span class="keyword">this</span>.temperature = temperature; &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>解析代码</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Gson gson = <span class="keyword">new</span> GsonBuilder().setPrettyPrinting().create();</span><br><span class="line">Status s = gson.fromJson(Constant.themeBean, Status<span class="class">.<span class="keyword">class</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/gson/" rel="tag"># gson</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/22/moshidaili/" rel="prev" title="代理模式">
+      <i class="fa fa-chevron-left"></i> 代理模式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/23/moshicelue/" rel="next" title="策略模式">
+      策略模式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简单使用"><span class="nav-number">2.</span> <span class="nav-text">简单使用:</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Tsy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">97</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">135</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tsy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

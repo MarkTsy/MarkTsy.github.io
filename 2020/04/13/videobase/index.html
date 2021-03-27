@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一. 视频基础概念帧(Frame)简单的理解帧就是为视频或者动画中的每一张画面，而视频和动画特效就是由无数张画面组合而成，每一张画面都是一帧。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="音视频开发基础">
+<meta property="og:url" content="http://yoursite.com/2020/04/13/videobase/index.html">
+<meta property="og:site_name" content="TBlog">
+<meta property="og:description" content="一. 视频基础概念帧(Frame)简单的理解帧就是为视频或者动画中的每一张画面，而视频和动画特效就是由无数张画面组合而成，每一张画面都是一帧。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/04/13/videobase/780b83e181.webp">
+<meta property="article:published_time" content="2020-04-13T07:49:00.000Z">
+<meta property="article:modified_time" content="2020-05-18T04:53:23.000Z">
+<meta property="article:author" content="Tsy">
+<meta property="article:tag" content="音视频">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/04/13/videobase/780b83e181.webp">
+
+<link rel="canonical" href="http://yoursite.com/2020/04/13/videobase/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>音视频开发基础 | TBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">TBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-mydirectory">
+
+    <a href="/MyDirectory/" rel="section"><i class="fa fa-fw fa-book"></i>MyDirectory</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/13/videobase/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tsy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          音视频开发基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-13 15:49:00" itemprop="dateCreated datePublished" datetime="2020-04-13T15:49:00+08:00">2020-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-18 12:53:23" itemprop="dateModified" datetime="2020-05-18T12:53:23+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="一-视频基础概念"><a href="#一-视频基础概念" class="headerlink" title="一. 视频基础概念"></a>一. 视频基础概念</h4><h5 id="帧-Frame"><a href="#帧-Frame" class="headerlink" title="帧(Frame)"></a>帧(Frame)</h5><p>简单的理解帧就是为视频或者动画中的每一张画面，而视频和动画特效就是由无数张画面组合而成，每一张画面都是一帧。</p>
+<a id="more"></a>
+
+<h5 id="帧数-Frames"><a href="#帧数-Frames" class="headerlink" title="帧数(Frames)"></a>帧数(Frames)</h5><p>帧数其实就是为帧生成数量的简称，可以解释为静止画面的数量</p>
+<h5 id="帧率-Frame-Rate"><a href="#帧率-Frame-Rate" class="headerlink" title="帧率(Frame Rate)"></a>帧率(Frame Rate)</h5><p>帧率(Frame rate) = 帧数(Frames)/时间(Time)，单位为帧每秒(f/s, frames per second, fps)。</p>
+<h5 id="刷新率"><a href="#刷新率" class="headerlink" title="刷新率"></a>刷新率</h5><p>屏幕每秒画面被刷新的次数，分为垂直刷新率和水平刷新率，一般我们提到的都是指垂直刷新率，以赫兹(Hz)为单位，刷新率越高，图像就越稳定，图像显示就越自然清晰。</p>
+<p>目前， 大多数显示器根据其设定按 30Hz、 60Hz、 120Hz 或者 144Hz 的频率进行刷新。 而其中最常见的刷新频率是 60 Hz。 这样做是为了继承以前电视机刷新频率为 60Hz 的设定。</p>
+<h5 id="帧率关键值"><a href="#帧率关键值" class="headerlink" title="帧率关键值"></a>帧率关键值</h5><ul>
+<li>10~12 FPS：由于人类眼睛的特殊生理结构，如果所看画面之帧率高于每秒约10至12帧的时候，就会认为是连贯的，此现象称之为视觉暂留。</li>
+<li>24 FPS：一般电影的拍摄及播放帧数是每秒24帧。</li>
+<li>60 FPS：这个帧率对人眼识别来说已经具备较高的平滑度。</li>
+<li>85 FPS：人类大脑处理视频的极限，人眼无法分辨更高频率的差异。</li>
+</ul>
+<h5 id="60FPS"><a href="#60FPS" class="headerlink" title="60FPS"></a>60FPS</h5><p>在做页面性能优化时，常用60FPS作为一个基准，所以需要尽量让每一帧的渲染控制在16ms内，这样才能达到一秒60帧的流畅度。</p>
+<h5 id="分辨率"><a href="#分辨率" class="headerlink" title="分辨率"></a>分辨率</h5><p>视频、图片的画面大小或尺寸。</p>
+<h5 id="码率-比特率"><a href="#码率-比特率" class="headerlink" title="码率/比特率"></a>码率/比特率</h5><p>单位时间播放连续的媒体如压缩后的音频或视频的比特数量。常用单位“比特每秒”，缩写是“bit/s”。比特率越高，带宽消耗得越多。</p>
+<h4 id="二-CPU-amp-GPU"><a href="#二-CPU-amp-GPU" class="headerlink" title="二. CPU &amp; GPU"></a>二. CPU &amp; GPU</h4><p><strong>CPU</strong>：中央处理器(英文全名：Central Processing Unit)，包括运算器（算术逻辑运算单元，ALU，Arithmetic Logic Unit）和高速缓冲存储器（Cache）及实现它们之间联系的数据（Data）、控制及状态的总线（Bus）。</p>
+<p><strong>GPU</strong>：图形处理器（英语全名：Graphics Processing Unit），专为执行复杂的数学和几何计算而设计的，拥有2D或3D图形加速功能。</p>
+<p>GPU相比于CPU，更强大的2D、3D图形计算能力，可以让CPU从图形处理的任务中解放出来，执行其他更多的系统任务，这样可以大大提高计算机的整体性能。</p>
+<h5 id="硬件加速"><a href="#硬件加速" class="headerlink" title="硬件加速"></a>硬件加速</h5><p>硬件加速（Hardware acceleration）就是利用硬件模块来替代软件算法以充分利用硬件所固有的快速特性。硬件加速通常比软件算法的效率要高。</p>
+<p>将2D、3D图形计算相关工作交给GPU处理，从而释放CPU的压力，也是属于硬件加速的一种。</p>
+<h5 id="硬解和软解"><a href="#硬解和软解" class="headerlink" title="硬解和软解"></a>硬解和软解</h5><p>硬解和上面的硬件加速对应，即使用硬件模块来解析视频、音频文件等，而软解即是用CPU去计算解析。</p>
+<h4 id="三-视频封装格式-Container-format"><a href="#三-视频封装格式-Container-format" class="headerlink" title="三. 视频封装格式(Container format)"></a>三. 视频封装格式(Container format)</h4><table>
+<thead>
+<tr>
+<th>格式</th>
+<th>全名</th>
+<th>开发商</th>
+<th>初版年限</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MP4</td>
+<td>MP4</td>
+<td>Moving Picture Experts Group，即 MPEG(动态图像专家组)</td>
+<td>1998</td>
+<td>常用有损压缩格式，通用性强</td>
+</tr>
+<tr>
+<td>AVI</td>
+<td>Audio Video Interleaved(音频视频交错格式)</td>
+<td>微软</td>
+<td>1992</td>
+<td>体积大算法简单</td>
+</tr>
+<tr>
+<td>MOV</td>
+<td>QuickTime 影片格式</td>
+<td>Apple</td>
+<td>1991</td>
+<td>苹果专属格式对很多其他的播放器支持不是很友好</td>
+</tr>
+<tr>
+<td>WMV</td>
+<td>Windows Media Video</td>
+<td>微软</td>
+<td>2003</td>
+<td>微软的专业视频格式，兼容性并不是很好</td>
+</tr>
+<tr>
+<td>FLV</td>
+<td>Adobe Flash 网络流媒体格式</td>
+<td>Adobe</td>
+<td>2002</td>
+<td>被淘汰的早期网络视频格式</td>
+</tr>
+<tr>
+<td>MKV</td>
+<td>Matroska 多媒体容器</td>
+<td>Matroska.org</td>
+<td>2002</td>
+<td>最有包容性的视频格式，能容纳无限量、多种不同类型编码的视频、音频及字幕流</td>
+</tr>
+<tr>
+<td>WebM</td>
+<td>WebM</td>
+<td>Google</td>
+<td>2010</td>
+<td>谷歌推出的 HTML5 标准的网络视频标准,以MKV容器格式为基础开发</td>
+</tr>
+<tr>
+<td>RMVB</td>
+<td>RMVB</td>
+<td>Real Networks</td>
+<td>1997</td>
+<td>根据不同的网络传输速率，而制定出不同的压缩比率，从而实现在低速率的网络上进行影像数据实时传送和播放，具有体积小，画质不错的优点。已过时。</td>
+</tr>
+</tbody></table>
+<h4 id="四-视频编码格式-Codec"><a href="#四-视频编码格式-Codec" class="headerlink" title="四. 视频编码格式(Codec)"></a>四. 视频编码格式(Codec)</h4><h5 id="1-MPEG：-Moving-Picture-Experts-Group-ISO旗下的组织"><a href="#1-MPEG：-Moving-Picture-Experts-Group-ISO旗下的组织" class="headerlink" title="1. MPEG：(Moving Picture Experts Group, ISO旗下的组织)"></a>1. MPEG：(Moving Picture Experts Group, ISO旗下的组织)</h5><p>MPEG是Moving Picture Experts Group的简称。这个名字本来的含义是指一个研究视频和音频编码标准的“动态图像专家组”组织，成立于1988年，致力开发视频、音频的压缩编码技术。</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MPEG - 1</td>
+<td>VCD</td>
+</tr>
+<tr>
+<td>MPEG - 2</td>
+<td>DVD、数字有线电视信号</td>
+</tr>
+<tr>
+<td>MPEG - 4(第二部分)</td>
+<td>视频电话、网络传输、广播和媒体存储</td>
+</tr>
+</tbody></table>
+<h5 id="2-H-26X-ITU-T-VCEG-Visual-Coding-Experts-Group，国际电联旗下的标准化组织-制定"><a href="#2-H-26X-ITU-T-VCEG-Visual-Coding-Experts-Group，国际电联旗下的标准化组织-制定" class="headerlink" title="2. H.26X : ITU-T VCEG(Visual Coding Experts Group，国际电联旗下的标准化组织)制定"></a>2. H.26X : ITU-T VCEG(Visual Coding Experts Group，国际电联旗下的标准化组织)制定</h5><table>
+<thead>
+<tr>
+<th>版本</th>
+<th>用于</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>H.261</td>
+<td>老的视频会议和视频电话产品</td>
+</tr>
+<tr>
+<td>H.262</td>
+<td>DVD、数字有线电视信号(与MPEG共同制定，与MPEG-2完全一致)</td>
+</tr>
+<tr>
+<td>H.263</td>
+<td>视频会议、视频电话和网络视频</td>
+</tr>
+<tr>
+<td>H.264</td>
+<td>高精度视频的录制、压缩和发布格式(与MPEG-4第十部分完全一致)，当前主流</td>
+</tr>
+<tr>
+<td>H.265</td>
+<td>H.264的两倍之压缩率，可支持4K分辨率甚至到超高画质电视，最高分辨率可达到8192×4320（8K分辨率）</td>
+</tr>
+</tbody></table>
+<h5 id="3-H-264"><a href="#3-H-264" class="headerlink" title="3. H.264"></a>3. H.264</h5><p>当前主流的编码格式是H.264，这是由ITU-T VCEG和MPEG共同制定的标准，MPEG - 4第十部分内容也是H.264。</p>
+<h5 id="视频封装格式-amp-视频编码格式"><a href="#视频封装格式-amp-视频编码格式" class="headerlink" title="视频封装格式 &amp; 视频编码格式"></a>视频封装格式 &amp; 视频编码格式</h5><p>封装格式是提供了一个容器，用于存放视频、音频以及其他配置信息，而编码格式是指对视频画面内容进行压缩的一种标准。</p>
+<h4 id="五-音频格式"><a href="#五-音频格式" class="headerlink" title="五. 音频格式"></a>五. 音频格式</h4><ul>
+<li><strong>WAV</strong>：因其文件扩展名为wav，微软和IBM联合开发的标准，数据本身的格式为PCM或压缩型，属于无损格式。</li>
+<li><strong>MP3</strong> : MP3是一种音频压缩技术，其全称是动态影像专家压缩标准音频层面3（Moving Picture Experts Group Audio Layer III），简称为MP3。压缩比4:1~10:1之间。</li>
+<li><strong>AAC</strong>：Advanced Audio Coding， 出现于1997年，由Fraunhofer IIS、杜比实验室、AT&amp;T、Sony、Nokia等公司共同开发。AAC压缩比通常为18：1。相比MP3，采用更高效的编码算法，音质更佳，文件更小。</li>
+<li><strong>Opus</strong>：Opus格式是一个开放格式，使用上没有任何专利或限制，比MP3、AAC、HE-AAC等常见格式，有更低的延迟和更好的声音压缩率。2012年7月2日，Opus被IETF批准用于标准化。</li>
+</ul>
+<h4 id="六-H-264编码介绍"><a href="#六-H-264编码介绍" class="headerlink" title="六. H.264编码介绍"></a>六. H.264编码介绍</h4><h5 id="IPB帧"><a href="#IPB帧" class="headerlink" title="IPB帧"></a>IPB帧</h5><ul>
+<li>I帧：帧内编码帧(intra picture)，采用帧内压缩去掉空间冗余信息。</li>
+<li>P帧：前向预测编码帧(predictive-frame)，通过将图像序列中前面已经编码帧的时间冗余信息来压缩传输数据量的编码图像。参考前面的I帧或者P帧。</li>
+<li>B帧：双向预测内插编码帧(bi-directional interpolated prediction frame)，既考虑源图像序列前面的已编码帧，又顾及源图像序列后面的已编码帧之间的冗余信息，来压缩传输数据量的编码图像，也称为双向编码帧。参考前面一个的I帧或者P帧及其后面的一个P帧。</li>
+</ul>
+<h5 id="PTS和DTS"><a href="#PTS和DTS" class="headerlink" title="PTS和DTS"></a>PTS和DTS</h5><ul>
+<li>DTS(Decoding Time Stamp)是标识读入内存中bit流在什么时候开始送入解码器中进行解码。也就是解码顺序的时间戳。</li>
+<li>PTS(Presentation Time Stamp)用于度量解码后的视频帧什么时候被显示出来。在没有B帧的情况下，DTS和PTS的输出顺序是一样的，一旦存在B帧，PTS和DTS则会不同。也就是显示顺序的时间戳。</li>
+</ul>
+<h5 id="GOP"><a href="#GOP" class="headerlink" title="GOP"></a>GOP</h5><p>即Group of picture(图像组)，指两个I帧之间的距离，Reference(参考周期)指两个P帧之间的距离。</p>
+<p>一个I帧所占用的字节数大于一个P帧，一个P帧所占用的字节数大于一个B帧。所以在码率不变的前提下，GOP值越大，P、B帧的数量会越多，平均每个I、P、B帧所占用的字节数就越多，也就更容易获取较好的图像质量；Reference越大，B帧的数量越多，同理也更容易获得较好的图像质量。</p>
+<p>简而言之：</p>
+<ul>
+<li>字节大小：I &gt; P &gt; B</li>
+<li>解码顺序：I -&gt; P -&gt; B</li>
+</ul>
+<p><img src="/2020/04/13/videobase/780b83e181.webp" alt></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/" rel="tag"># 音视频</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/13/pdfshare/" rel="prev" title="资源分享">
+      <i class="fa fa-chevron-left"></i> 资源分享
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/13/androidmediabase/" rel="next" title="Android音视频基础">
+      Android音视频基础 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一-视频基础概念"><span class="nav-number">1.</span> <span class="nav-text">一. 视频基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#帧-Frame"><span class="nav-number">1.1.</span> <span class="nav-text">帧(Frame)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#帧数-Frames"><span class="nav-number">1.2.</span> <span class="nav-text">帧数(Frames)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#帧率-Frame-Rate"><span class="nav-number">1.3.</span> <span class="nav-text">帧率(Frame Rate)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#刷新率"><span class="nav-number">1.4.</span> <span class="nav-text">刷新率</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#帧率关键值"><span class="nav-number">1.5.</span> <span class="nav-text">帧率关键值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#60FPS"><span class="nav-number">1.6.</span> <span class="nav-text">60FPS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分辨率"><span class="nav-number">1.7.</span> <span class="nav-text">分辨率</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#码率-比特率"><span class="nav-number">1.8.</span> <span class="nav-text">码率&#x2F;比特率</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二-CPU-amp-GPU"><span class="nav-number">2.</span> <span class="nav-text">二. CPU &amp; GPU</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#硬件加速"><span class="nav-number">2.1.</span> <span class="nav-text">硬件加速</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#硬解和软解"><span class="nav-number">2.2.</span> <span class="nav-text">硬解和软解</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三-视频封装格式-Container-format"><span class="nav-number">3.</span> <span class="nav-text">三. 视频封装格式(Container format)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四-视频编码格式-Codec"><span class="nav-number">4.</span> <span class="nav-text">四. 视频编码格式(Codec)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-MPEG：-Moving-Picture-Experts-Group-ISO旗下的组织"><span class="nav-number">4.1.</span> <span class="nav-text">1. MPEG：(Moving Picture Experts Group, ISO旗下的组织)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-H-26X-ITU-T-VCEG-Visual-Coding-Experts-Group，国际电联旗下的标准化组织-制定"><span class="nav-number">4.2.</span> <span class="nav-text">2. H.26X : ITU-T VCEG(Visual Coding Experts Group，国际电联旗下的标准化组织)制定</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-H-264"><span class="nav-number">4.3.</span> <span class="nav-text">3. H.264</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#视频封装格式-amp-视频编码格式"><span class="nav-number">4.4.</span> <span class="nav-text">视频封装格式 &amp; 视频编码格式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五-音频格式"><span class="nav-number">5.</span> <span class="nav-text">五. 音频格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#六-H-264编码介绍"><span class="nav-number">6.</span> <span class="nav-text">六. H.264编码介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#IPB帧"><span class="nav-number">6.1.</span> <span class="nav-text">IPB帧</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PTS和DTS"><span class="nav-number">6.2.</span> <span class="nav-text">PTS和DTS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#GOP"><span class="nav-number">6.3.</span> <span class="nav-text">GOP</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Tsy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">97</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">135</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tsy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

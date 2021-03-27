@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="中介者模式中介者模式是行为型模式的一种，旨在处理类或对象如何交互及如何分配职责。中介者模式又叫做调停者模式，名字跟出国留学中介和房产中介是类似的。拿房产中介来说，现在房子买家和房子卖家非常多，如果任由房子买家和房子卖家自由交易，则会导致不同的买家和卖家之间有很多交互，一个买家会和多个卖家进行交涉，同样的一个卖家也会和多个买家进行交涉。如果在买房的过程中出现纠纷问题，则很难进行解决。就如下图所示一样">
+<meta property="og:type" content="article">
+<meta property="og:title" content="中介者模式">
+<meta property="og:url" content="http://yoursite.com/2020/05/22/moshizhongjie/index.html">
+<meta property="og:site_name" content="TBlog">
+<meta property="og:description" content="中介者模式中介者模式是行为型模式的一种，旨在处理类或对象如何交互及如何分配职责。中介者模式又叫做调停者模式，名字跟出国留学中介和房产中介是类似的。拿房产中介来说，现在房子买家和房子卖家非常多，如果任由房子买家和房子卖家自由交易，则会导致不同的买家和卖家之间有很多交互，一个买家会和多个卖家进行交涉，同样的一个卖家也会和多个买家进行交涉。如果在买房的过程中出现纠纷问题，则很难进行解决。就如下图所示一样">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/moshizhongjie/1111.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/moshizhongjie/2222.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/moshizhongjie/3333.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/moshizhongjie/4444.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/moshizhongjie/5555.png">
+<meta property="article:published_time" content="2020-05-22T04:03:51.000Z">
+<meta property="article:modified_time" content="2020-05-22T04:21:39.000Z">
+<meta property="article:author" content="Tsy">
+<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="中介者模式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/05/22/moshizhongjie/1111.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/05/22/moshizhongjie/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>中介者模式 | TBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">TBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-mydirectory">
+
+    <a href="/MyDirectory/" rel="section"><i class="fa fa-fw fa-book"></i>MyDirectory</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/22/moshizhongjie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tsy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          中介者模式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-05-22 12:03:51 / Modified: 12:21:39" itemprop="dateCreated datePublished" datetime="2020-05-22T12:03:51+08:00">2020-05-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="中介者模式"><a href="#中介者模式" class="headerlink" title="中介者模式"></a>中介者模式</h4><p>中介者模式是行为型模式的一种，旨在处理类或对象如何交互及如何分配职责。<br>中介者模式又叫做调停者模式，名字跟出国留学中介和房产中介是类似的。拿房产中介来说，现在房子买家和房子卖家非常多，如果任由房子买家和房子卖家自由交易，则会导致不同的买家和卖家之间有很多交互，一个买家会和多个卖家进行交涉，同样的一个卖家也会和多个买家进行交涉。如果在买房的过程中出现纠纷问题，则很难进行解决。就如下图所示一样。</p>
+<a id="more"></a>
+
+<p><img src="/2020/05/22/moshizhongjie/1111.png" alt></p>
+<p>可以看出房子买家和卖家进行了很多错综复杂的交互，并且买家A和卖家B，买家D和卖家D还产生了纠纷，一看到这个图我们就觉得的晕，当然比我们晕的还有房子买家和卖家。我们在设计原则文章讲过迪米特原则，这个原则所说的就是要尽量减少对象之间的交互，如果两个对象之间不必彼此直接通信，那么这两个对象就不应当发生任何直接的相互作用，如果其中的一个对象需要调用另一个对象的某一个方法的话，可以通过第三者转发这个调用。迪米特原则同样适用于本场景，我们可以引入第三者也就是房产中介。它的出现不需要买家和卖家进行直接交涉，而是通过房产中介而进行交涉。并且也不容易出现买卖家之间纠纷，因为有中介者房产中介进行第三方监督。如下图所示。<br><img src="/2020/05/22/moshizhongjie/2222.png" alt></p>
+<p>图中的关系清晰了很多。回到我们软件开发中，我们为了减少对象之间的交互和耦合，符合迪米特原则，那么就可以使用中介者模式，先来学习下中介者模式的定义。</p>
+<h4 id="中介者模式定义"><a href="#中介者模式定义" class="headerlink" title="中介者模式定义"></a>中介者模式定义</h4><p><strong>定义：用一个中介者对象来封装一系列的对象交互。中介者使得各对象不需要显式地相互引用，从而使其松散耦合，而且可以独立地改变它们之间的交互。</strong></p>
+<p>中介者模式结构图如下图所示。</p>
+<p><img src="/2020/05/22/moshizhongjie/3333.png" alt><br>在中介者模式中有如下角色：</p>
+<ul>
+<li>Mediator：抽象中介者角色，定义了同事对象到中介者对象的接口。</li>
+<li>ConcreteMediator：具体中介者角色，它从具体的同事对象接收消息，向具体同事发出命令。</li>
+<li>Colleague：抽象同事角色，定义了中介者对象接口，它只知道中介者而不知道其他同事对象。</li>
+<li>ConcreteColleague：具体同事角色，每个具体同事类都知道自己在小范围内的行为，而不知道它在大范围内的目的。</li>
+</ul>
+<h4 id="中介者模式简单实现"><a href="#中介者模式简单实现" class="headerlink" title="中介者模式简单实现"></a>中介者模式简单实现</h4><p>中介者模式可以拿武侠来举例，江湖中门派众多，门派之前因为想法不同会有很多的利益冲突，这样就会带来无休止的纷争。为了江湖的安宁，大家推举出了一个大家都认可的武林盟主来对江湖纷争进行调停。<br>前段时间武当派和峨眉派的的弟子被大力金刚指所杀，大力金刚指是少林派的绝学，因为事情重大，而且少林派实力强大，武当派和峨眉派不能够直接去少林派去问罪，只能上报武林盟主由武林盟主出面进行调停，如下图所示。</p>
+<p><img src="/2020/05/22/moshizhongjie/4444.png" alt></p>
+<h5 id="抽象中介者角色"><a href="#抽象中介者角色" class="headerlink" title="抽象中介者角色"></a>抽象中介者角色</h5><p>首先我们创建抽象中介者类，在这个例子中，它是一个武林联盟类，如下所示。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">WulinAlliance</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">notice</span><span class="params">(String message, United united)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>notice方法用于向门派发送通知，其中United为抽象同事类也就是门派类，接下来我们来创建它。</p>
+<h5 id="抽象同事角色"><a href="#抽象同事角色" class="headerlink" title="抽象同事角色"></a>抽象同事角色</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">United</span> </span>&#123;</span><br><span class="line">  <span class="keyword">protected</span> WulinAlliance wulinAlliance;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">United</span><span class="params">(WulinAlliance wulinAlliance)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.wulinAlliance=wulinAlliance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>门派类（抽象同事类）会在构造方法中得到武林联盟类（抽象中介者类）。</p>
+<h5 id="具体同事角色"><a href="#具体同事角色" class="headerlink" title="具体同事角色"></a>具体同事角色</h5><p>具体同事类包括武当派、峨眉派和少林派，如下所示。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 具体同事类（武当）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Wudang</span> <span class="keyword">extends</span> <span class="title">United</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Wudang</span><span class="params">(WulinAlliance wulinAlliance)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(wulinAlliance);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendAlliance</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        wulinAlliance.notice(message, <span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getNotice</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"武当收到消息："</span> + message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 具体同事类（峨眉派）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Emei</span> <span class="keyword">extends</span> <span class="title">United</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Emei</span><span class="params">(WulinAlliance wulinAlliance)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(wulinAlliance);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendAlliance</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        wulinAlliance.notice(message, Emei.<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getNotice</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"峨眉收到消息："</span> + message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 具体同事类（少林派）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Shaolin</span> <span class="keyword">extends</span> <span class="title">United</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Shaolin</span><span class="params">(WulinAlliance wulinAlliance)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(wulinAlliance);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendAlliance</span><span class="params">(String message)</span></span>&#123;</span><br><span class="line">        wulinAlliance.notice(message,Shaolin.<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getNotice</span><span class="params">(String message)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"少林收到消息："</span>+message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>武当、峨眉和少林类都有两个方法，其中getNotice方法是自有方法，对于其他的门派（同事类）和武林联盟（中介者）没有依赖，只是用来接收武林盟主的通知。sendAlliance方法则是依赖方法，它必须通过武林盟主才能完成行为。</p>
+<h5 id="具体中介者角色"><a href="#具体中介者角色" class="headerlink" title="具体中介者角色"></a>具体中介者角色</h5><p>具体中介者类则是武林盟主类，如下所示  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Champions</span> <span class="keyword">extends</span> <span class="title">WulinAlliance</span> </span>&#123;</span><br><span class="line"> <span class="keyword">private</span> Wudang wudang;</span><br><span class="line"> <span class="keyword">private</span> Shaolin shaolin;</span><br><span class="line"> <span class="keyword">private</span> Emei emei;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWudang</span><span class="params">(Wudang wudang)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">this</span>.wudang = wudang;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEmei</span><span class="params">(Emei emei)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">this</span>.emei = emei;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setShaolin</span><span class="params">(Shaolin shaolin)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">this</span>.shaolin = shaolin;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notice</span><span class="params">(String message, United united)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (united == wudang) &#123;</span><br><span class="line">       shaolin.getNotice(message);</span><br><span class="line">   &#125; <span class="keyword">else</span> <span class="keyword">if</span> (united == emei) &#123;</span><br><span class="line">       shaolin.getNotice(message);</span><br><span class="line">   &#125; <span class="keyword">else</span> <span class="keyword">if</span> (united == shaolin) &#123;</span><br><span class="line">       wudang.getNotice(message);</span><br><span class="line">       emei.getNotice(message);</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>武林盟主需要了解所有的门派，所以需要用setter来持有武当、峨眉和少林的引用。notice方法会根据不同门派发来的消息，转而通知给其他的门派。比如武当发来的消息，武林盟主就会将消息通知给少林。</p>
+<h5 id="客户端调用"><a href="#客户端调用" class="headerlink" title="客户端调用"></a>客户端调用</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[]args)</span> </span>&#123;</span><br><span class="line">   Champions champions=<span class="keyword">new</span> Champions();</span><br><span class="line">   Wudang wudang=<span class="keyword">new</span> Wudang(champions);</span><br><span class="line">   Shaolin shaolin=<span class="keyword">new</span> Shaolin(champions);</span><br><span class="line">   Emei emei=<span class="keyword">new</span> Emei(champions);</span><br><span class="line">   champions.setWudang(wudang);</span><br><span class="line">   champions.setShaolin(shaolin);</span><br><span class="line">   champions.setEmei(emei);</span><br><span class="line">   wudang.sendAlliance(<span class="string">"武当弟子被少林大力金刚指所杀"</span>);</span><br><span class="line">   emei.sendAlliance(<span class="string">"峨眉弟子被少林大力金刚指所杀"</span>);</span><br><span class="line">   shaolin.sendAlliance(<span class="string">"少林弟子绝不会做出这种事情"</span>);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先创建武林盟主类Champions 并传入到各个门派类，接着调用武林盟主类的setter方法传入各个门派类，最后调用各个门派的sendAlliance方法通过武林盟主类向其他门派发送消息。</p>
+<p>输出结果为：<br>少林收到消息：武当弟子被少林大力金刚指所杀<br>少林收到消息：峨眉弟子被少林大力金刚指所杀<br>武当收到消息：少林弟子绝不会做出这种事情<br>峨眉收到消息：少林弟子绝不会做出这种事情</p>
+<p>接下来给出这个例子的UML图，如下所示。<br><img src="/2020/05/22/moshizhongjie/5555.png" alt></p>
+<h4 id="中介者模式的优缺点和使用场景"><a href="#中介者模式的优缺点和使用场景" class="headerlink" title="中介者模式的优缺点和使用场景"></a>中介者模式的优缺点和使用场景</h4><p><strong>优点</strong><br>符合迪米特原则，将原有的一对多的依赖变成了一对一的依赖，降低类间的耦合。</p>
+<p><strong>缺点</strong><br>中介者会变得庞大且复杂，原本多个对象直接的相互依赖变成了中介者和多个同事类的依赖关系，同事类越多，中介者的逻辑就越复杂。</p>
+<p><strong>使用场景</strong><br>中介者模式很容易实现呢，但是也容易误用，不要着急使用，先要思考你的设计是否合理。<br>当对象之间的交互变多时，为了防止一个类会涉及修改其他类的行为，可以使用中介者模式，将系统从网状结构变为以中介者为中心的星型结构。</p>
+<h4 id="代理模式、外观模式和中介者模式对比"><a href="#代理模式、外观模式和中介者模式对比" class="headerlink" title="代理模式、外观模式和中介者模式对比"></a>代理模式、外观模式和中介者模式对比</h4><p>当我们学完中介者模式是不是会觉得和此前讲过的代理模式和外观模式有些类似呢？现在我们一一来将它们进行对比。</p>
+<h4 id="代理模式和中介者模式"><a href="#代理模式和中介者模式" class="headerlink" title="代理模式和中介者模式"></a>代理模式和中介者模式</h4><p>代理模式是结构型设计模式，它有很多种类型，主要是在访问对象时引入一定程度的间接性，由于有间接性，就可以附加多种的用途，比如进行权限控制。中介者模式则是为了减少对象之间的相互耦合。虽然网上有很多代理模式和中介者模式的对比，但是在我看来这两者实际上并没有可比性，只是看起来有些类似罢了。</p>
+<h4 id="外观模式和中介者模式"><a href="#外观模式和中介者模式" class="headerlink" title="外观模式和中介者模式"></a>外观模式和中介者模式</h4><p>外观模式主要是以封装和隔离为主要任务，中介者则是调停同事类之间的关系，因此，中介者具有部分业务的逻辑控制。他们之间的主要区别为：</p>
+<ul>
+<li>外观模式的子系统如果脱离外观模式还是可以运行的，而中介者模式增加了业务逻辑，同事类不能脱离中介者而独自存在。</li>
+<li>外观模式中，子系统是不知道外观类的存在的，而中介者模式中，每个同事类都知道中介者。</li>
+<li>外观模式将子系统的逻辑隐藏，用户不知道子系统的存在，而中介者模式中，用户知道同事类的存在。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 设计模式</a>
+              <a href="/tags/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="tag"># 中介者模式</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/08/moshiguancha/" rel="prev" title="观察者模式">
+      <i class="fa fa-chevron-left"></i> 观察者模式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/22/moshimoban/" rel="next" title="模版方法模式">
+      模版方法模式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#中介者模式"><span class="nav-number">1.</span> <span class="nav-text">中介者模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中介者模式定义"><span class="nav-number">2.</span> <span class="nav-text">中介者模式定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中介者模式简单实现"><span class="nav-number">3.</span> <span class="nav-text">中介者模式简单实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#抽象中介者角色"><span class="nav-number">3.1.</span> <span class="nav-text">抽象中介者角色</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#抽象同事角色"><span class="nav-number">3.2.</span> <span class="nav-text">抽象同事角色</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#具体同事角色"><span class="nav-number">3.3.</span> <span class="nav-text">具体同事角色</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#具体中介者角色"><span class="nav-number">3.4.</span> <span class="nav-text">具体中介者角色</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端调用"><span class="nav-number">3.5.</span> <span class="nav-text">客户端调用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中介者模式的优缺点和使用场景"><span class="nav-number">4.</span> <span class="nav-text">中介者模式的优缺点和使用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代理模式、外观模式和中介者模式对比"><span class="nav-number">5.</span> <span class="nav-text">代理模式、外观模式和中介者模式对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代理模式和中介者模式"><span class="nav-number">6.</span> <span class="nav-text">代理模式和中介者模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外观模式和中介者模式"><span class="nav-number">7.</span> <span class="nav-text">外观模式和中介者模式</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Tsy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">97</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">135</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tsy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

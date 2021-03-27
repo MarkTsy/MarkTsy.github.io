@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言对于Android开发来说, Logcat肯定是再熟悉不过. 获取日志输出来定位程序问题, logcat是必不可少的, 最近在弄一个log收集的工具, 需要获取指定程序的日志, 再次记录一下.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Logcat获取指定报名日志">
+<meta property="og:url" content="http://yoursite.com/2020/03/12/androidlogcatyoupack/index.html">
+<meta property="og:site_name" content="TBlog">
+<meta property="og:description" content="前言对于Android开发来说, Logcat肯定是再熟悉不过. 获取日志输出来定位程序问题, logcat是必不可少的, 最近在弄一个log收集的工具, 需要获取指定程序的日志, 再次记录一下.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-12T11:44:59.000Z">
+<meta property="article:modified_time" content="2020-05-18T04:53:23.000Z">
+<meta property="article:author" content="Tsy">
+<meta property="article:tag" content="logcat">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/12/androidlogcatyoupack/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>Logcat获取指定报名日志 | TBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">TBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-mydirectory">
+
+    <a href="/MyDirectory/" rel="section"><i class="fa fa-fw fa-book"></i>MyDirectory</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/12/androidlogcatyoupack/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tsy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Logcat获取指定报名日志
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-12 19:44:59" itemprop="dateCreated datePublished" datetime="2020-03-12T19:44:59+08:00">2020-03-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-18 12:53:23" itemprop="dateModified" datetime="2020-05-18T12:53:23+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>对于Android开发来说, Logcat肯定是再熟悉不过. 获取日志输出来定位程序问题, logcat是必不可少的, 最近在弄一个log收集的工具, 需要获取指定程序的日志, 再次记录一下.</p>
+<a id="more"></a>
+
+<h3 id="1-Logcat源码地址"><a href="#1-Logcat源码地址" class="headerlink" title="1.Logcat源码地址"></a>1.Logcat源码地址</h3><p><a href="https://github.com/android/platform_system_core/tree/master/logcat" target="_blank" rel="noopener" title="https://github.`com`/android/platform_system_core/tree/master/logcat">https://github.com/android/platform_system_core/tree/master/logcat</a></p>
+<h3 id="2-源码中两个方法提示logcat用法"><a href="#2-源码中两个方法提示logcat用法" class="headerlink" title="2.源码中两个方法提示logcat用法"></a>2.源码中两个方法提示logcat用法</h3><p>logcat.cpp中</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show_help</span><span class="params">(android_logcat_context_internal* context)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!context-&gt;error) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* cmd = <span class="built_in">strrchr</span>(context-&gt;argv[<span class="number">0</span>], <span class="string">'/'</span>);</span><br><span class="line">    cmd = cmd ? cmd + <span class="number">1</span> : context-&gt;argv[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">fprintf</span>(context-&gt;error, <span class="string">"Usage: %s [options] [filterspecs]\n"</span>, cmd);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">fprintf</span>(context-&gt;error, <span class="string">"options include:\n"</span></span><br><span class="line">                    <span class="string">"  -s              Set default filter to silent. Equivalent to filterspec '*:S'\n"</span></span><br><span class="line">                    <span class="string">"  -f &lt;file&gt;, --file=&lt;file&gt;               Log to file. Default is stdout\n"</span></span><br><span class="line">                    <span class="string">"  -r &lt;kbytes&gt;, --rotate-kbytes=&lt;kbytes&gt;\n"</span></span><br><span class="line">                    <span class="string">"                  Rotate log every kbytes. Requires -f option\n"</span></span><br><span class="line">                    <span class="string">"  -n &lt;count&gt;, --rotate-count=&lt;count&gt;\n"</span></span><br><span class="line">                    <span class="string">"                  Sets max number of rotated logs to &lt;count&gt;, default 4\n"</span></span><br><span class="line">                    <span class="string">"  --id=&lt;id&gt;       If the signature id for logging to file changes, then clear\n"</span></span><br><span class="line">                    <span class="string">"                  the fileset and continue\n"</span></span><br><span class="line">                    <span class="string">"  -v &lt;format&gt;, --format=&lt;format&gt;\n"</span></span><br><span class="line">                    <span class="string">"                  Sets log print format verb and adverbs, where &lt;format&gt; is:\n"</span></span><br><span class="line">                    <span class="string">"                    brief help long process raw tag thread threadtime time\n"</span></span><br><span class="line">                    <span class="string">"                  and individually flagged modifying adverbs can be added:\n"</span></span><br><span class="line">                    <span class="string">"                    color descriptive epoch monotonic printable uid\n"</span></span><br><span class="line">                    <span class="string">"                    usec UTC year zone\n"</span></span><br><span class="line">                    <span class="string">"                  Multiple -v parameters or comma separated list of format and\n"</span></span><br><span class="line">                    <span class="string">"                  format modifiers are allowed.\n"</span></span><br><span class="line">                    <span class="comment">// private and undocumented nsec, no signal, too much noise</span></span><br><span class="line">                    <span class="comment">// useful for -T or -t &lt;timestamp&gt; accurate testing though.</span></span><br><span class="line">                    <span class="string">"  -D, --dividers  Print dividers between each log buffer\n"</span></span><br><span class="line">                    <span class="string">"  -c, --clear     Clear (flush) the entire log and exit\n"</span></span><br><span class="line">                    <span class="string">"                  if Log to File specified, clear fileset instead\n"</span></span><br><span class="line">                    <span class="string">"  -d              Dump the log and then exit (don't block)\n"</span></span><br><span class="line">                    <span class="string">"  -e &lt;expr&gt;, --regex=&lt;expr&gt;\n"</span></span><br><span class="line">                    <span class="string">"                  Only print lines where the log message matches &lt;expr&gt;\n"</span></span><br><span class="line">                    <span class="string">"                  where &lt;expr&gt; is a regular expression\n"</span></span><br><span class="line">                    <span class="comment">// Leave --head undocumented as alias for -m</span></span><br><span class="line">                    <span class="string">"  -m &lt;count&gt;, --max-count=&lt;count&gt;\n"</span></span><br><span class="line">                    <span class="string">"                  Quit after printing &lt;count&gt; lines. This is meant to be\n"</span></span><br><span class="line">                    <span class="string">"                  paired with --regex, but will work on its own.\n"</span></span><br><span class="line">                    <span class="string">"  --print         Paired with --regex and --max-count to let content bypass\n"</span></span><br><span class="line">                    <span class="string">"                  regex filter but still stop at number of matches.\n"</span></span><br><span class="line">                    <span class="comment">// Leave --tail undocumented as alias for -t</span></span><br><span class="line">                    <span class="string">"  -t &lt;count&gt;      Print only the most recent &lt;count&gt; lines (implies -d)\n"</span></span><br><span class="line">                    <span class="string">"  -t '&lt;time&gt;'     Print most recent lines since specified time (implies -d)\n"</span></span><br><span class="line">                    <span class="string">"  -T &lt;count&gt;      Print only the most recent &lt;count&gt; lines (does not imply -d)\n"</span></span><br><span class="line">                    <span class="string">"  -T '&lt;time&gt;'     Print most recent lines since specified time (not imply -d)\n"</span></span><br><span class="line">                    <span class="string">"                  count is pure numerical, time is 'MM-DD hh:mm:ss.mmm...'\n"</span></span><br><span class="line">                    <span class="string">"                  'YYYY-MM-DD hh:mm:ss.mmm...' or 'sssss.mmm...' format\n"</span></span><br><span class="line">                    <span class="string">"  -g, --buffer-size                      Get the size of the ring buffer.\n"</span></span><br><span class="line">                    <span class="string">"  -G &lt;size&gt;, --buffer-size=&lt;size&gt;\n"</span></span><br><span class="line">                    <span class="string">"                  Set size of log ring buffer, may suffix with K or M.\n"</span></span><br><span class="line">                    <span class="string">"  -L, --last      Dump logs from prior to last reboot\n"</span></span><br><span class="line">                    <span class="string">"  -b &lt;buffer&gt;, --buffer=&lt;buffer&gt;         Request alternate ring buffer, 'main',\n"</span></span><br><span class="line">                    <span class="string">"                  'system', 'radio', 'events', 'crash', 'default' or 'all'.\n"</span></span><br><span class="line">                    <span class="string">"                  Additionally, 'kernel' for userdebug and eng builds, and\n"</span></span><br><span class="line">                    <span class="string">"                  'security' for Device Owner installations.\n"</span></span><br><span class="line">                    <span class="string">"                  Multiple -b parameters or comma separated list of buffers are\n"</span></span><br><span class="line">                    <span class="string">"                  allowed. Buffers interleaved.\n"</span></span><br><span class="line">                    <span class="string">"                  Default -b main,system,crash,kernel.\n"</span></span><br><span class="line">                    <span class="string">"  -B, --binary    Output the log in binary.\n"</span></span><br><span class="line">                    <span class="string">"  -S, --statistics                       Output statistics.\n"</span></span><br><span class="line">                    <span class="string">"  -p, --prune     Print prune white and ~black list. Service is specified as\n"</span></span><br><span class="line">                    <span class="string">"                  UID, UID/PID or /PID. Weighed for quicker pruning if prefix\n"</span></span><br><span class="line">                    <span class="string">"                  with ~, otherwise weighed for longevity if unadorned. All\n"</span></span><br><span class="line">                    <span class="string">"                  other pruning activity is oldest first. Special case ~!\n"</span></span><br><span class="line">                    <span class="string">"                  represents an automatic quicker pruning for the noisiest\n"</span></span><br><span class="line">                    <span class="string">"                  UID as determined by the current statistics.\n"</span></span><br><span class="line">                    <span class="string">"  -P '&lt;list&gt; ...', --prune='&lt;list&gt; ...'\n"</span></span><br><span class="line">                    <span class="string">"                  Set prune white and ~black list, using same format as\n"</span></span><br><span class="line">                    <span class="string">"                  listed above. Must be quoted.\n"</span></span><br><span class="line">                    <span class="string">"  --pid=&lt;pid&gt;     Only prints logs from the given pid.\n"</span></span><br><span class="line">                    <span class="comment">// Check ANDROID_LOG_WRAP_DEFAULT_TIMEOUT value for match to 2 hours</span></span><br><span class="line">                    <span class="string">"  --wrap          Sleep for 2 hours or when buffer about to wrap whichever\n"</span></span><br><span class="line">                    <span class="string">"                  comes first. Improves efficiency of polling by providing\n"</span></span><br><span class="line">                    <span class="string">"                  an about-to-wrap wakeup.\n"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">fprintf</span>(context-&gt;error, <span class="string">"\nfilterspecs are a series of \n"</span></span><br><span class="line">                   <span class="string">"  &lt;tag&gt;[:priority]\n\n"</span></span><br><span class="line">                   <span class="string">"where &lt;tag&gt; is a log component tag (or * for all) and priority is:\n"</span></span><br><span class="line">                   <span class="string">"  V    Verbose (default for &lt;tag&gt;)\n"</span></span><br><span class="line">                   <span class="string">"  D    Debug (default for '*')\n"</span></span><br><span class="line">                   <span class="string">"  I    Info\n"</span></span><br><span class="line">                   <span class="string">"  W    Warn\n"</span></span><br><span class="line">                   <span class="string">"  E    Error\n"</span></span><br><span class="line">                   <span class="string">"  F    Fatal\n"</span></span><br><span class="line">                   <span class="string">"  S    Silent (suppress all output)\n"</span></span><br><span class="line">                   <span class="string">"\n'*' by itself means '*:D' and &lt;tag&gt; by itself means &lt;tag&gt;:V.\n"</span></span><br><span class="line">                   <span class="string">"If no '*' filterspec or -s on command line, all filter defaults to '*:V'.\n"</span></span><br><span class="line">                   <span class="string">"eg: '*:S &lt;tag&gt;' prints only &lt;tag&gt;, '&lt;tag&gt;:S' suppresses all &lt;tag&gt; log messages.\n"</span></span><br><span class="line">                   <span class="string">"\nIf not specified on the command line, filterspec is set from ANDROID_LOG_TAGS.\n"</span></span><br><span class="line">                   <span class="string">"\nIf not specified with -v on command line, format is set from ANDROID_PRINTF_LOG\n"</span></span><br><span class="line">                   <span class="string">"or defaults to \"threadtime\"\n\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show_format_help</span><span class="params">(android_logcat_context_internal* context)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!context-&gt;error) <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">fprintf</span>(context-&gt;error,</span><br><span class="line">        <span class="string">"-v &lt;format&gt;, --format=&lt;format&gt; options:\n"</span></span><br><span class="line">        <span class="string">"  Sets log print format verb and adverbs, where &lt;format&gt; is:\n"</span></span><br><span class="line">        <span class="string">"    brief long process raw tag thread threadtime time\n"</span></span><br><span class="line">        <span class="string">"  and individually flagged modifying adverbs can be added:\n"</span></span><br><span class="line">        <span class="string">"    color descriptive epoch monotonic printable uid usec UTC year zone\n"</span></span><br><span class="line">        <span class="string">"\nSingle format verbs:\n"</span></span><br><span class="line">        <span class="string">"  brief      — Display priority/tag and PID of the process issuing the message.\n"</span></span><br><span class="line">        <span class="string">"  long       — Display all metadata fields, separate messages with blank lines.\n"</span></span><br><span class="line">        <span class="string">"  process    — Display PID only.\n"</span></span><br><span class="line">        <span class="string">"  raw        — Display the raw log message, with no other metadata fields.\n"</span></span><br><span class="line">        <span class="string">"  tag        — Display the priority/tag only.\n"</span></span><br><span class="line">        <span class="string">"  thread     — Display priority, PID and TID of process issuing the message.\n"</span></span><br><span class="line">        <span class="string">"  threadtime — Display the date, invocation time, priority, tag, and the PID\n"</span></span><br><span class="line">        <span class="string">"               and TID of the thread issuing the message. (the default format).\n"</span></span><br><span class="line">        <span class="string">"  time       — Display the date, invocation time, priority/tag, and PID of the\n"</span></span><br><span class="line">        <span class="string">"             process issuing the message.\n"</span></span><br><span class="line">        <span class="string">"\nAdverb modifiers can be used in combination:\n"</span></span><br><span class="line">        <span class="string">"  color       — Display in highlighted color to match priority. i.e. \x1B[38;5;231mVERBOSE\n"</span></span><br><span class="line">        <span class="string">"                \x1B[38;5;75mDEBUG \x1B[38;5;40mINFO \x1B[38;5;166mWARNING \x1B[38;5;196mERROR FATAL\x1B[0m\n"</span></span><br><span class="line">        <span class="string">"  descriptive — events logs only, descriptions from event-log-tags database.\n"</span></span><br><span class="line">        <span class="string">"  epoch       — Display time as seconds since Jan 1 1970.\n"</span></span><br><span class="line">        <span class="string">"  monotonic   — Display time as cpu seconds since last boot.\n"</span></span><br><span class="line">        <span class="string">"  printable   — Ensure that any binary logging content is escaped.\n"</span></span><br><span class="line">        <span class="string">"  uid         — If permitted, display the UID or Android ID of logged process.\n"</span></span><br><span class="line">        <span class="string">"  usec        — Display time down the microsecond precision.\n"</span></span><br><span class="line">        <span class="string">"  UTC         — Display time as UTC.\n"</span></span><br><span class="line">        <span class="string">"  year        — Add the year to the displayed time.\n"</span></span><br><span class="line">        <span class="string">"  zone        — Add the local timezone to the displayed time.\n"</span></span><br><span class="line">        <span class="string">"  \"&lt;zone&gt;\"    — Print using this public named timezone (experimental).\n\n"</span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="选项解析"><a href="#选项解析" class="headerlink" title="选项解析 :"></a>选项解析 :</h3><ul>
+<li><p>“-s”选项 : 设置输出日志的标签, 只显示该标签的日志;</p>
+</li>
+<li><p>“-f”选项 : 将日志输出到文件, 默认输出到标准输出流中, -f 参数执行不成功;</p>
+</li>
+<li><p>“-r”选项 : 按照每千字节输出日志, 需要 -f 参数, 不过这个命令没有执行成功;</p>
+</li>
+<li><p>“-n”选项 : 设置日志输出的最大数目, 需要 -r 参数, 这个执行 感觉 跟 adb logcat 效果一样;</p>
+</li>
+<li><p>“-v”选项 : 设置日志的输出格式, 注意只能设置一项;</p>
+</li>
+<li><p>“-c”选项 : 清空所有的日志缓存信息;</p>
+</li>
+<li><p>“-d”选项 : 将缓存的日志输出到屏幕上, 并且不会阻塞;</p>
+</li>
+<li><p>“-t”选项 : 输出最近的几行日志, 输出完退出, 不阻塞;</p>
+</li>
+<li><p>“-g”选项 : 查看日志缓冲区信息;</p>
+</li>
+<li><p>“-b”选项 : 加载一个日志缓冲区, 默认是 main, 下面详解;</p>
+</li>
+<li><p>“-B”选项 : 以二进制形式输出日志;</p>
+</li>
+</ul>
+<h3 id="3-常用功能"><a href="#3-常用功能" class="headerlink" title="3.常用功能"></a>3.常用功能</h3><ul>
+<li><p>logcat -s &lt;过滤标签&gt; — 根据指定标签过滤</p>
+</li>
+<li><p>logcat -f —- 输出到文件</p>
+</li>
+<li><p>logcat | grep &lt;过滤内容&gt; —- 根据内容过滤log</p>
+</li>
+<li><p>logcat -v time — log带有日期, 之前的版本貌似只能添加一个格式, 最新的版本貌似可以添加多个格式 显示你需要的内容, pid 等;</p>
+</li>
+</ul>
+<h3 id="4-应用"><a href="#4-应用" class="headerlink" title="4. 应用"></a>4. 应用</h3><p>如何获取指定包名的程序的log, 思路就是通过runtime.exec 执行logcat语句, 读流过滤</p>
+<ul>
+<li>runtime.exec </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logcat –v time</span><br></pre></td></tr></table></figure>
+
+<p> 带有时间信息以及pid的log , 用来后面过滤进程</p>
+<ul>
+<li>通过包名获取进程pid, runtime.exec</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps | grep xxx.xxx.xxx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在读流的过程中去过滤pid, 获取到的 就是你想要得到的应用进程的log</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/logcat/" rel="tag"># logcat</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/12/androidexstorageinfo/" rel="prev" title="Android外置存储设备监听获取">
+      <i class="fa fa-chevron-left"></i> Android外置存储设备监听获取
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/12/androidblockleak/" rel="next" title="Android 性能测试 BlockCanary & LeakCanary">
+      Android 性能测试 BlockCanary & LeakCanary <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Logcat源码地址"><span class="nav-number">2.</span> <span class="nav-text">1.Logcat源码地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-源码中两个方法提示logcat用法"><span class="nav-number">3.</span> <span class="nav-text">2.源码中两个方法提示logcat用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选项解析"><span class="nav-number">4.</span> <span class="nav-text">选项解析 :</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-常用功能"><span class="nav-number">5.</span> <span class="nav-text">3.常用功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-应用"><span class="nav-number">6.</span> <span class="nav-text">4. 应用</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Tsy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">97</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">135</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tsy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

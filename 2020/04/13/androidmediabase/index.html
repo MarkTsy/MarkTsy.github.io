@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="多媒体基础概念视频分辨率 标清、高清、720P… 视频编码 H.264、H.265…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android音视频基础">
+<meta property="og:url" content="http://yoursite.com/2020/04/13/androidmediabase/index.html">
+<meta property="og:site_name" content="TBlog">
+<meta property="og:description" content="多媒体基础概念视频分辨率 标清、高清、720P… 视频编码 H.264、H.265…">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/04/13/androidmediabase/C:%5CUsers%5Ctao%5CDesktop%5Cgithubpage%5Cblog%5Csource_posts%5Candroidmediabase%5C7344457-d5bca585f1baad41.webp">
+<meta property="og:image" content="http://yoursite.com/2020/04/13/androidmediabase/C:%5CUsers%5Ctao%5CDesktop%5Cgithubpage%5Cblog%5Csource_posts%5Candroidmediabase%5C3480018-0ce2bc54d69a017b..webp">
+<meta property="og:image" content="http://yoursite.com/2020/04/13/androidmediabase/C:%5CUsers%5Ctao%5CDesktop%5Cgithubpage%5Cblog%5Csource_posts%5Candroidmediabase%5C7344457-f9dafaecc77070b0.webp">
+<meta property="og:image" content="http://yoursite.com/2020/04/13/androidmediabase/C:%5CUsers%5Ctao%5CDesktop%5Cgithubpage%5Cblog%5Csource_posts%5Candroidmediabase%5C7344457-9703a4ce9dc1363d.webp">
+<meta property="og:image" content="http://yoursite.com/2020/04/13/androidmediabase/C:%5CUsers%5Ctao%5CDesktop%5Cgithubpage%5Cblog%5Csource_posts%5Candroidmediabase%5C7344457-75b87ef440b0afbf.webp">
+<meta property="og:image" content="http://yoursite.com/2020/04/13/androidmediabase/C:%5CUsers%5Ctao%5CDesktop%5Cgithubpage%5Cblog%5Csource_posts%5Candroidmediabase%5C7344457-971a8f0b62873958.webp">
+<meta property="og:image" content="http://yoursite.com/2020/04/13/androidmediabase/C:%5CUsers%5Ctao%5CDesktop%5Cgithubpage%5Cblog%5Csource_posts%5Candroidmediabase%5C7344457-8642c86b720aa2fe.webp">
+<meta property="article:published_time" content="2020-04-13T09:26:40.000Z">
+<meta property="article:modified_time" content="2020-05-21T09:16:36.000Z">
+<meta property="article:author" content="Tsy">
+<meta property="article:tag" content="音视频">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/04/13/androidmediabase/C:%5CUsers%5Ctao%5CDesktop%5Cgithubpage%5Cblog%5Csource_posts%5Candroidmediabase%5C7344457-d5bca585f1baad41.webp">
+
+<link rel="canonical" href="http://yoursite.com/2020/04/13/androidmediabase/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>Android音视频基础 | TBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">TBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-mydirectory">
+
+    <a href="/MyDirectory/" rel="section"><i class="fa fa-fw fa-book"></i>MyDirectory</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/13/androidmediabase/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tsy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android音视频基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-13 17:26:40" itemprop="dateCreated datePublished" datetime="2020-04-13T17:26:40+08:00">2020-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-21 17:16:36" itemprop="dateModified" datetime="2020-05-21T17:16:36+08:00">2020-05-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="多媒体基础概念"><a href="#多媒体基础概念" class="headerlink" title="多媒体基础概念"></a>多媒体基础概念</h4><p><strong>视频分辨率</strong></p>
+<p>标清、高清、720P…</p>
+<p><strong>视频编码</strong></p>
+<p>H.264、H.265…</p>
+<a id="more"></a>
+
+<p><strong>音频编码</strong></p>
+<p>AAC、MP3、AC3…</p>
+<p><strong>视频封装格式</strong></p>
+<p>TS、RMVB 、MKV</p>
+<p><strong>多媒体播放组件(Android)</strong></p>
+<p>MediaPlayer、MediaCodec、OMX、Stagefright</p>
+<h4 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h4><p><strong>分辨率</strong></p>
+<p>一帧视频的大小，表示长宽像素个数(720x576, 1280x720, 1920x1080 …)</p>
+<p><strong>帧率</strong></p>
+<p>每秒钟视频帧数(24/25/30/48/60 FPS)</p>
+<p><strong>编码格式</strong></p>
+<ul>
+<li>编码：目的是压缩数据量，采用编码算法压缩冗余数据</li>
+</ul>
+<p>MPEG(MPEG-2, MPEG-4)</p>
+<p>H.26X(H.263, H.264/AVC, H.265/HEVC)</p>
+<ul>
+<li>封装格式</li>
+</ul>
+<p>把编码后的音、视频数据以一定格式封装到一个容器</p>
+<p>MKV/AVI/TS …</p>
+<h4 id="Android平台播放器"><a href="#Android平台播放器" class="headerlink" title="Android平台播放器"></a>Android平台播放器</h4><p><strong>多媒体播放器基本组成</strong></p>
+<p><img src="/2020/04/13/androidmediabase/C:%5CUsers%5Ctao%5CDesktop%5Cgithubpage%5Cblog%5Csource_posts%5Candroidmediabase%5C7344457-d5bca585f1baad41.webp" alt></p>
+<p><strong>MediaPlayer状态周期</strong></p>
+<p><img src="/2020/04/13/androidmediabase/C:%5CUsers%5Ctao%5CDesktop%5Cgithubpage%5Cblog%5Csource_posts%5Candroidmediabase%5C3480018-0ce2bc54d69a017b..webp" alt></p>
+<p><strong>MediaPlayer简介</strong></p>
+<p><img src="/2020/04/13/androidmediabase/C:%5CUsers%5Ctao%5CDesktop%5Cgithubpage%5Cblog%5Csource_posts%5Candroidmediabase%5C7344457-f9dafaecc77070b0.webp" alt></p>
+<p><strong>什么是MediaCodec</strong></p>
+<p>在Android中用于访问底层的媒体编解码器的类，是Android底层多媒体基础框架的一部分，通常与MediaExtractor, MediaSync, MediaMuxer, MediaCrypto, MediaDrm, Image, Surface和AudioTrack一起使用</p>
+<p>•它本身并不是Codec，它是通过调用底层编解码组件具有Codec能力</p>
+<p>•适用的Android版本</p>
+<p>•Android 4.1以后的版本(API 16+)</p>
+<p><strong>MediaCodec状态</strong></p>
+<p><img src="/2020/04/13/androidmediabase/C:%5CUsers%5Ctao%5CDesktop%5Cgithubpage%5Cblog%5Csource_posts%5Candroidmediabase%5C7344457-9703a4ce9dc1363d.webp" alt></p>
+<h4 id="常见音视频开发中的问题总结"><a href="#常见音视频开发中的问题总结" class="headerlink" title="常见音视频开发中的问题总结"></a>常见音视频开发中的问题总结</h4><p><strong>黑屏</strong></p>
+<p>播放过程中黑屏</p>
+<p>当播放器遇到不支持的视频格式，或者数据内容/格式异常，则会解码失败，从而导致无解码视频输出</p>
+<p>定位：播放器播放时的报错日志，用合适的播放模式播放。数据异常，需要分析码流文件本身，送入解码器的帧数据不完整，H.264 的视频码流，缺失了 SPS，PPS 等必要的信息头，部分 Android 机型硬编出来的数据有额外的 NALU 头</p>
+<p><strong>重新起播/进入时黑屏</strong></p>
+<p>这时是由于没有渲染出帧，进入时黑屏，可以增加loading动画，直到渲染出首帧，loading动画消失，另外一种是应用退到后台，再回到应界播放界面时黑屏，可以在pause时，保存视频最后播放的帧，重新进来时，看到时之前退出时的画面，等播放器重新缓冲好后，开始画面连续播放</p>
+<p><strong>卡顿/卡死</strong></p>
+<p>卡顿分网络差，数据跟不上造成的卡顿，还有一种就是画面很慢的变化卡顿。卡死一般是卡住不动</p>
+<p>分析：网络差的卡顿，可以在播放器加入数据代理，用于缓存足够多的数据。画面解码卡顿，可以降低清晰度或用其他播放模式播放。卡死，有时是调用某个方法后，一直得不到回调引起，如我们在VLC上发现，stop时，迟迟得不到onStopped状态。导致时间过长无相应ANR</p>
+<p><strong>马赛克</strong></p>
+<p>马赛克，这里指局部/半局部马赛克，常出现在很高画质视频，给播放器播放出现。如果画面偶尔出现马赛克，通常是数据错误造成的。注意区分</p>
+<p>分析：视频帧中主要是一个一个宏块组成，频编码算法以宏块为单位，逐个宏块进行编码，组织成连续的视频码流。解码同样也是。画质越高，压缩越厉害</p>
+<p><strong>H.264 有四种画质级别</strong></p>
+<p>•Baseline profile</p>
+<p>•Extended profile</p>
+<p>•Main profile</p>
+<p>•High profile</p>
+<p>画质越高，对解码能力要求也越高</p>
+<p><strong>花屏/绿屏</strong></p>
+<p>播放画面出现图像紊乱，像被刮花了一样。大面积的异常颜色的方块图，绿屏或其他颜色现象</p>
+<p>丢失参考帧导致， I 帧由于是帧内压缩，因此可以独立解码播放，而 B 帧，一旦丢失了 I 帧或者后面的 P 帧，则会解码失败，而 P 帧一旦丢失了前面的 I/B/P 帧，也会导致解码失败。不要丢弃编码后、解码前的视频帧数据，实在要丢，一次丢一整个 GOP（一个I帧到下一个I帧中间的数据）</p>
+<p><img src="/2020/04/13/androidmediabase/C:%5CUsers%5Ctao%5CDesktop%5Cgithubpage%5Cblog%5Csource_posts%5Candroidmediabase%5C7344457-75b87ef440b0afbf.webp" alt></p>
+<p><strong>音画不同步</strong></p>
+<p>遇到log中大量打印“Past duration XXX too large”且伴有frame drop相关信息的打印</p>
+<p>分析方法：将输入视频包的时间戳信息打印出来，发现一些视频帧未设置DTS/PTS，这些视频帧携带的时间戳都是默认值为AV_NOPTS_VALUE，代码中对该值的定义如下</p>
+<p>#define AV_NOPTS_VALUE ((int64_t)UINT64_C(0x8000000000000000))</p>
+<p>而这些帧在编码输出之前会被Drop掉，为了满足设定的帧率，后面的有效时间戳的帧会提前输出，导致视频提前而音频滞后</p>
+<p>解决方法：由于我们为这些未设置时间戳的输入帧填充有效时间戳不是一件很容易的</p>
+<h4 id="播放方案"><a href="#播放方案" class="headerlink" title="播放方案"></a>播放方案</h4><p><strong>1、ExoPlayer</strong></p>
+<p>ExoPlayer 是一个Google开源项目，它不属于Android framework，独立于Android SDK</p>
+<p>Android支持通过MediaExtractor和MediaCodec实现自定义播放。ExoPlayer介于MediaPlayer和自定义播放器之间的播放器，比MediaPlayer更强的扩展能力</p>
+<p>ExoPlayer可以通过进一步扩展来处理多种媒体格式</p>
+<p>由于它是内置于app中，所以可以随着app进行升级事(需要结合输入视频是否采用B帧等)，因此在输入输出帧率相同时，我们可以将这些携带无效时间戳的帧正常送至编码器编码并输出，而不是丢弃</p>
+<p><strong>ExoPlayer优点</strong></p>
+<ul>
+<li><p>支持 Dynamic Adaptive Streaming over HTTP (DASH) 和SmoothStreaming，更多支持请参阅支持的格式）详细信息页面。</p>
+</li>
+<li><p>支持高级 HLS (HTTP Live Streaming)功能，如正确处理 #EXT-X-DISCONTINUITY的标签</p>
+</li>
+</ul>
+<p><strong>ExoPlayer缺点</strong></p>
+<ul>
+<li>ExoPlayer的音频和视频组件依赖Android的 MediaCodec接口，该接口发布于Android4.1（API 等级16）。因此它不能工作于之前的Android版本</li>
+</ul>
+<p><strong>使用</strong></p>
+<p>YouTube(Android平台客户端)使用ExoPlayer</p>
+<p><a href="https://github.com/google/ExoPlayer" target="_blank" rel="noopener">https://github.com/google/ExoPlayer</a></p>
+<p><strong>2、Ijkplayer</strong></p>
+<p>是基于ffmpeg开源的轻量级视频播放器，跨平台</p>
+<p>封装ffplay、MediaPlayer，MediaCodec，ExoPlayer</p>
+<p>支持几乎所有视频封装格式</p>
+<p>音频AudioTrack，OpenSL ES</p>
+<p><strong>Ijkplayer</strong></p>
+<p><img src="/2020/04/13/androidmediabase/C:%5CUsers%5Ctao%5CDesktop%5Cgithubpage%5Cblog%5Csource_posts%5Candroidmediabase%5C7344457-971a8f0b62873958.webp" alt></p>
+<p><strong>使用</strong></p>
+<p>B站和主流直播软件都在使用</p>
+<p><a href="https://github.com/Bilibili/ijkplayer" target="_blank" rel="noopener">https://github.com/Bilibili/ijkplayer</a></p>
+<p><strong>3、VLC</strong></p>
+<p>VLC(Video Lan Client)是一个完整的多媒体框架，最大特点是可以根据需要动态加载许多插件模块，支持视频传输，封装和编码格式。框架核心是利用程序将各模块链接起来。对输入媒体数据，经过各模块处理后输出</p>
+<ul>
+<li><p>可在所有平台运行：Windows, Linux, Mac OS X, Unix, iOS, Android ..</p>
+</li>
+<li><p>支持Dolby，及多音轨，多字幕</p>
+</li>
+<li><p>内置MediaCodec，ffmpeg，有自己专门的Demuxing，和自己接入OpenMax组件</p>
+</li>
+</ul>
+<p><strong>VLC</strong></p>
+<p><img src="/2020/04/13/androidmediabase/C:%5CUsers%5Ctao%5CDesktop%5Cgithubpage%5Cblog%5Csource_posts%5Candroidmediabase%5C7344457-8642c86b720aa2fe.webp" alt></p>
+<p><strong>使用</strong></p>
+<p>小米Android ROM集成VLC作为播放器</p>
+<p><a href="http://www.videolan.org/vlc/" target="_blank" rel="noopener">http://www.videolan.org/vlc/</a></p>
+<p>git://git.videolan.org/vlc.git</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/" rel="tag"># 音视频</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/13/videobase/" rel="prev" title="音视频开发基础">
+      <i class="fa fa-chevron-left"></i> 音视频开发基础
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/18/moshidanli/" rel="next" title="设计模式-单例模式">
+      设计模式-单例模式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#多媒体基础概念"><span class="nav-number">1.</span> <span class="nav-text">多媒体基础概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视频"><span class="nav-number">2.</span> <span class="nav-text">视频</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Android平台播放器"><span class="nav-number">3.</span> <span class="nav-text">Android平台播放器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见音视频开发中的问题总结"><span class="nav-number">4.</span> <span class="nav-text">常见音视频开发中的问题总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#播放方案"><span class="nav-number">5.</span> <span class="nav-text">播放方案</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Tsy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">97</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">135</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tsy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a>
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
